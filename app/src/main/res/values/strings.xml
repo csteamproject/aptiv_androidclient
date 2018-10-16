@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">AptivInventory</string>
+    <string name="company_name">A P T I V</string>
+    <string name="login_title">Inventory Management</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="login">Login</string>
+
+</resources>
