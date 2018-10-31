@@ -1,5 +1,6 @@
 package com.example.vray.aptivinventory;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -18,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,6 +27,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
+
+    public boolean success = false;
+
+    public boolean getSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean s) {
+        success = s;
+    }
+
+    public void getInventory(Intent intent) {
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +54,13 @@ public class MainActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 getLogin(user.getText(), pass.getText());
+                setSuccess(true);
+                Log.d("success value", "" + getSuccess());
+                if (success) {
+                    Log.d("success value", "" + getSuccess());
+                    Intent intent = new Intent(MainActivity.this, Inventory.class);
+                    getInventory(intent);
+                }
             }
         });
 
@@ -58,6 +81,10 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("JSON Response", response.toString());
                         try {
                             String saveToken = response.getString("token");
+                            String success = response.getString("success");
+                            if (success.equals("true")) {
+                                setSuccess(true);
+                            }
                             edit.putString("token", saveToken);
                             edit.apply();
                             getToken();
@@ -79,15 +106,12 @@ public class MainActivity extends AppCompatActivity {
                 return headers;
             }
         };
-
         queue.add(req);
-
     }
 
-    private void getToken() {
+    public String getToken() {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String token = sharedPrefs.getString("token", "");
-        Log.i("token", token);
+        return sharedPrefs.getString("token", "");
     }
 }
 
