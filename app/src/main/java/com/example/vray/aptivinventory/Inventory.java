@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -18,12 +17,19 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Inventory extends AppCompatActivity {
+
+    String data = "";
+    public void getAddItem(Intent intent) {
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +41,17 @@ public class Inventory extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 getInventory();
+                editText.setText(data);
             }
         });
 
+        Button additem = findViewById(R.id.additem);
+        additem.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(Inventory.this, AddInventory.class);
+                getAddItem(intent);
+            }
+        });
     }
 
     private void getInventory() {
@@ -48,12 +62,22 @@ public class Inventory extends AppCompatActivity {
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("Inventory Response", response.toString());
+                        try {
+                            JSONArray jResponse = response.getJSONArray("id");
+
+                            for (int count = 0; count < jResponse.length(); count++){
+                                Log.d("Array_times",jResponse.get(count).toString());
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d("Volley Error", error.toString());
+                        data = error.toString();
                     }
                 }) {
             @Override
