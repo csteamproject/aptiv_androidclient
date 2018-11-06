@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TableLayout; //for code not implemented yet
+import android.widget.TableRow;    //for code not implemented yet
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -25,70 +27,93 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Inventory extends AppCompatActivity {
-
-    String data = "";
-    public void getAddItem(Intent intent) {
+  String data = "";
+  public void getAddItem(Intent intent) {
         startActivity(intent);
     }
 
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_inventory);
+
+    final EditText editText = findViewById(R.id.editText);
+    Button button = findViewById(R.id.button);
+    button.setOnClickListener(new View.OnClickListener() {
+      public void onClick(View v) {
+        getInventory();
+        editText.setText(data);
+      }
+     });
+
+    Button additem = findViewById(R.id.additem);
+    additem.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+      Intent intent = new Intent(Inventory.this, AddInventory.class);
+      getAddItem(intent);
+      }
+    });
+
+
+  }
+
+  private void getInventory() {
+    RequestQueue queue = Volley.newRequestQueue(this);
+    String url = "http://10.0.2.2:3000/items";
+
+    JsonObjectRequest req = new JsonObjectRequest
+    (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inventory);
+    public void onResponse(JSONObject response) {
+      try {
+        JSONArray jResponse = response.getJSONArray("id");
 
-        final EditText editText = findViewById(R.id.editText);
-        Button button = findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                getInventory();
-                editText.setText(data);
-            }
-        });
+        for (int count = 0; count < jResponse.length(); count++){
+          Log.d("Array_times",jResponse.get(count).toString());
+        }
 
-        Button additem = findViewById(R.id.additem);
-        additem.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(Inventory.this, AddInventory.class);
-                getAddItem(intent);
-            }
-        });
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
     }
+    }, new Response.ErrorListener() {
+      @Override
+      public void onErrorResponse(VolleyError error) {
+        Log.d("Volley Error", error.toString());
+        data = error.toString();
+        }
+    }) {
+      @Override
+      public Map<String, String> getHeaders() {
+        HashMap<String, String> headers = new HashMap<>();
+        headers.put("jwt-token", getToken());
+        return headers;
+      }
+    };
+    queue.add(req);
+  }
 
-    private void getInventory() {
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://10.0.2.2:3000/items";
+  //Pending implementation
+  /*private void createRow( JSONArray x) {
+    TableLayout tableLayout = new TableLayout(this);
+    for (int i = 0; i < 10; i++) {
+      TableRow tableRow = new TableRow(this);
+      Button button = new Button(this);
+      button.setText("1");
+      tableRow.addView(button);
 
-        JsonObjectRequest req = new JsonObjectRequest
-                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONArray jResponse = response.getJSONArray("id");
+      button = new Button(this);
+      button.setText("2");
+      tableRow.addView(button);
 
-                            for (int count = 0; count < jResponse.length(); count++){
-                                Log.d("Array_times",jResponse.get(count).toString());
-                            }
+      button = new Button(this);
+      button.setText("3");
+      tableRow.addView(button);
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("Volley Error", error.toString());
-                        data = error.toString();
-                    }
-                }) {
-            @Override
-            public Map<String, String> getHeaders() {
-                HashMap<String, String> headers = new HashMap<>();
-                headers.put("jwt-token", getToken());
-                return headers;
-            }
-        };
-        queue.add(req);
+      tableLayout.addView(tableRow);
     }
+    setContentView(tableLayout);
+  }*/
 
     private String getToken() {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
