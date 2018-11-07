@@ -22,7 +22,7 @@
         <activity android:name=".Inventory" />
         <activity android:name=".AddInventory" />
         <activity android:name=".navBar"></activity>
-        <activity android:name=".ViewInventory" />
+        <activity android:name=".homePage" />
     </application>
 
 </manifest>
