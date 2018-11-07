@@ -13,6 +13,8 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
@@ -22,9 +24,15 @@ import java.util.Map;
 public class ServerCalls {
 
     private Context mContext;
+    public JSONArray jsonString = null;
 
     public ServerCalls(Context context) {
         mContext = context;
+    }
+
+    public interface VolleyResponseListener {
+        void onError(String message);
+        void onResponse(Object response);
     }
 
     public void httpSendJSON(final String mRequestBody, final String url) {
@@ -68,10 +76,47 @@ public class ServerCalls {
         queue.add(req);
     }
 
+    public void httpGetJSON(String url, final VolleyResponseListener listener) {
+
+        RequestQueue queue = Volley.newRequestQueue(mContext);
+
+        JsonObjectRequest req = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        listener.onResponse(response);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        listener.onResponse(error.toString());
+                    }
+                }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("jwt-token", getToken());
+                return headers;
+            }
+        };
+        queue.add(req);
+    }
+
+
+    public JSONArray httpParseJSON(String parser) {
+        JSONArray sArray = null;
+        String split[] = parser.split("\\[");
+        split = split[1].split("]");
+        try {
+            sArray = new JSONArray("[" + split[0] + "]");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return sArray;
+    }
+
     private String getToken() {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         return sharedPrefs.getString("token", "");
     }
-
-
 }
