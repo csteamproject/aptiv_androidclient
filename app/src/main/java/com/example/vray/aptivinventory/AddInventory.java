@@ -1,37 +1,21 @@
 package com.example.vray.aptivinventory;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
 
 public class AddInventory extends AppCompatActivity {
 
-  final int VALUES = 3;
+  final int VALUES = 5;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -39,37 +23,36 @@ public class AddInventory extends AppCompatActivity {
     setContentView(R.layout.activity_add_inventory);
 
     final ServerCalls sc = new ServerCalls(this);
-    final JSONObject JSONHash = new JSONObject();
 
     final EditText name = findViewById(R.id.name);
     final EditText price = findViewById(R.id.price);
     final EditText quantity = findViewById(R.id.quantity);
-    final String[] vals = new String[VALUES];
-    final String[] arr = new String[VALUES];
+    final String[] hashes = new String[VALUES*2-1];
 
     final TextView flash = findViewById(R.id.flash);
     Button add = findViewById(R.id.additem);
     add.setOnClickListener(new View.OnClickListener() {
       public void onClick(View v) {
-        Log.d("names:", name.getText().toString());
 
-        vals[0] = name.getText().toString();
-        vals[1] = price.getText().toString();
-        vals[2] = quantity.getText().toString();
+        hashes[0] = "name";
+        hashes[1] = name.getText().toString();
 
-        arr[0] = "name";
-        arr[1] = "price";
-        arr[2] = "quantity";
+        hashes[2] = "price";
+        hashes[3] = price.getText().toString();
 
-        for (int i = 0; i < 3; i++) {
-          try {
-            JSONHash.put(arr[i], vals[i]);
-          } catch (JSONException e) {
+        hashes[4] = "quantity";
+        hashes[5] = quantity.getText().toString();
+
+        hashes[6] = "computer_attributes";
+        hashes[7] = "utag";
+        hashes[8] = "U578945";
+
+        String mRequestBody = "";
+        try {
+            mRequestBody = getJSONString(hashes, 0).toString();
+        } catch (JSONException e) {
             e.printStackTrace();
-          }
         }
-
-        final String mRequestBody = JSONHash.toString();
         sendItem(sc, mRequestBody);
         flash.setText("Successfully Added!");
       }
@@ -77,17 +60,39 @@ public class AddInventory extends AppCompatActivity {
 
   }
 
-  public String[] getEditStrings(final Editable[] vals) {
-    String[] response = new String[vals.length];
-    for (int i = 0; i < vals.length; i++) {
-      response[i] = vals[i].toString();
-    }
-    return response;
-  }
-
   public void sendItem(ServerCalls sc, String mRequestBody) {
     String url = "http://10.0.2.2:3000/items";
-    Log.d("mrequest", mRequestBody);
-    sc.httpSendJSON(mRequestBody, url);
+
+    sc.httpSendJSON(mRequestBody, url, new ServerCalls.VolleyResponseListener() {
+      @Override
+      public void onError(String message) {
+        Log.d("Get Error", message);
+      }
+
+      @Override
+      public void onResponse(Object response) {
+        Log.d("POST ITEM", response.toString());
+      }
+    });
+  }
+
+  public JSONObject getJSONString(String[] hashes, int offset) throws JSONException {
+    final JSONObject JSONHash = new JSONObject();
+    String collection = "";
+
+    for (String hash : hashes) {
+      if (!collection.equals("")) {
+        JSONHash.put(collection, hash);
+        collection = "";
+        offset++;
+      } else if (hash.contains("_attributes")) {
+        String[] newArray = Arrays.copyOfRange(hashes, offset+1, hashes.length);
+        return JSONHash.put(hash, getJSONString(newArray, offset));
+      } else {
+        collection = hash;
+        offset++;
+      }
+    }
+    return JSONHash;
   }
 }

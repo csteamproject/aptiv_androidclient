@@ -21,12 +21,11 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ServerCalls {
+class ServerCalls {
 
     private Context mContext;
-    public JSONArray jsonString = null;
 
-    public ServerCalls(Context context) {
+    ServerCalls(Context context) {
         mContext = context;
     }
 
@@ -35,8 +34,7 @@ public class ServerCalls {
         void onResponse(Object response);
     }
 
-    public void httpSendJSON(final String mRequestBody, final String url) {
-
+    void httpSendJSON(final String mRequestBody, final String url, final VolleyResponseListener listener) {
         RequestQueue queue = Volley.newRequestQueue(mContext);
 
         JsonObjectRequest req = new JsonObjectRequest
@@ -76,7 +74,7 @@ public class ServerCalls {
         queue.add(req);
     }
 
-    public void httpGetJSON(String url, final VolleyResponseListener listener) {
+    void httpGetJSON(String url, final VolleyResponseListener listener) {
 
         RequestQueue queue = Volley.newRequestQueue(mContext);
 
@@ -103,7 +101,7 @@ public class ServerCalls {
     }
 
 
-    public JSONArray httpParseJSON(String parser) {
+    JSONArray httpParseJSON(String parser) {
         JSONArray sArray = null;
         String split[] = parser.split("\\[");
         split = split[1].split("]");
