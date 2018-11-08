@@ -81,7 +81,8 @@ public class Inventory extends AppCompatActivity {
         Log.d("items2", response.toString());
         responseArray = sc.httpParseJSON(response.toString());
         Log.d("items3", responseArray.toString());
-        createRow(responseArray);
+        String [] columns =  {"id","name","price", "quantity"};
+        createRow(responseArray, columns);
       }
     });
 
@@ -95,7 +96,7 @@ public class Inventory extends AppCompatActivity {
 
 
   //Pending implementation
-  private void createRow(JSONArray x) {
+  private void createRow(JSONArray x, String [] columns) {
     TableLayout tableLayout = new TableLayout(this);
     for (int i = 0; i < x.length(); i++) {
       TableRow tableRow = new TableRow(this);
@@ -107,15 +108,17 @@ public class Inventory extends AppCompatActivity {
       } catch (JSONException e) {
         e.printStackTrace();
       }
-
-      try {
-      sectionText.setText( jObj.getString("id") );
-      } catch (JSONException e) {
-        e.printStackTrace();
+      for (int j = 0; j < columns.length; j++ ) {
+        sectionText = new TextView(this);
+        try {
+          sectionText.setText(jObj.getString(columns[j]));
+        } catch (JSONException e) {
+          e.printStackTrace();
+        }
+        tableRow.addView(sectionText);
       }
-      tableRow.addView(sectionText);
 
-      sectionText = new TextView(this);
+      /*sectionText = new TextView(this);
       try {
       sectionText.setText(jObj.getString("name"));
       } catch (JSONException e) {
@@ -138,6 +141,7 @@ public class Inventory extends AppCompatActivity {
         e.printStackTrace();
       }
       tableRow.addView(sectionText);
+      */
 
       tableLayout.addView(tableRow);
     }
