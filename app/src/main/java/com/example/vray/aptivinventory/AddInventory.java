@@ -74,7 +74,6 @@ public class AddInventory extends AppCompatActivity {
         } catch (JSONException e) {
           e.printStackTrace();
         }
-
       }
     });
 

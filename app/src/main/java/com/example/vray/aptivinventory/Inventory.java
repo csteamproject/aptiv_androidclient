@@ -27,107 +27,73 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Inventory extends AppCompatActivity {
-  String data = "";
-  JSONArray responseArray;
-  public void getAddItem(Intent intent) {
+
+    String data = "";
+    JSONArray responseArray;
+
+    public void getAddItem(Intent intent) {
         startActivity(intent);
     }
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_inventory);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_inventory);
 
-    final ServerCalls sc = new ServerCalls(this);
+        final ServerCalls sc = new ServerCalls(this);
 
-    final EditText editText = findViewById(R.id.editText);
-    Button button = findViewById(R.id.button);
-    button.setOnClickListener(new View.OnClickListener() {
-      public void onClick(View v) {
-        try {
-          getInventory(sc);
-        } catch (JSONException e) {
-          e.printStackTrace();
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-        }
-//        editText.setText(data);
-      }
-     });
-
-    Button additem = findViewById(R.id.additem);
-    additem.setOnClickListener(new View.OnClickListener() {
+        final EditText editText = findViewById(R.id.editText);
+        Button button = findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-      Intent intent = new Intent(Inventory.this, AddInventory.class);
-      getAddItem(intent);
-      }
-    });
+                try {
+                    getInventory(sc);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+//        editText.setText(data);
+            }
+        });
 
+        Button additem = findViewById(R.id.additem);
+        additem.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(Inventory.this, AddInventory.class);
+                getAddItem(intent);
+            }
+        });
+    }
 
-  }
+    private void getInventory(final ServerCalls sc) throws JSONException, InterruptedException {
+        final String url = "http://10.0.2.2:3000/items";
 
-  private void getInventory(final ServerCalls sc) throws JSONException, InterruptedException {
-    final String url = "http://10.0.2.2:3000/items";
+        sc.httpGetJSON(url, new ServerCalls.VolleyResponseListener() {
+            @Override
+            public void onError(String message) {
+                Log.d("items:", message);
+            }
 
-    sc.httpGetJSON(url, new ServerCalls.VolleyResponseListener() {
-      @Override
-      public void onError(String message) {
-        Log.d("items:", message);
-      }
-      @Override
-      public void onResponse(Object response) {
-        Log.d("items2", response.toString());
-        responseArray = sc.httpParseJSON(response.toString());
-        Log.d("items3", responseArray.toString());
-      }
-    });
+            @Override
+            public void onResponse(Object response) {
+                Log.d("items2", response.toString());
+                responseArray = sc.httpParseJSON(response.toString());
+                Log.d("items3", responseArray.toString());
+            }
+        });
 
-//    for(int i = 0; i< items[0].length(); i++) {
+        //    for(int i = 0; i< items[0].length(); i++) {
 //      JSONObject jsonObject = items[0].getJSONObject(i);
 //      String jsonObjectAsString = jsonObject.toString();
 //      Log.d("jsons", jsonObjectAsString);
 //    }
 
-  }
+    }
 
-//  private void getInventory(final ServerCalls sc) {
-//    RequestQueue queue = Volley.newRequestQueue(this);
-//    String url = "http://10.0.2.2:3000/items";
-//
-//    JsonObjectRequest req = new JsonObjectRequest
-//    (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-//    @Override
-//    public void onResponse(JSONObject response) {
-//      try {
-//        JSONArray jResponse = response.getJSONArray("id");
-//
-//        for (int count = 0; count < jResponse.length(); count++){
-//          Log.d("Array_times",jResponse.get(count).toString());
-//        }
-//
-//      } catch (JSONException e) {
-//        e.printStackTrace();
-//      }
-//    }
-//    }, new Response.ErrorListener() {
-//      @Override
-//      public void onErrorResponse(VolleyError error) {
-//        Log.d("Volley Error", error.toString());
-//        sc.parseJSONVolleyError(error.toString());
-//        data = error.toString();
-//        }
-//    }) {
-//      @Override
-//      public Map<String, String> getHeaders() {
-//        HashMap<String, String> headers = new HashMap<>();
-//        headers.put("jwt-token", getToken());
-//        return headers;
-//      }
-//    };
-//    queue.add(req);
-//  }
+}
 
-  //Pending implementation
+    //Pending implementation
   /*private void createRow( JSONArray x) {
     TableLayout tableLayout = new TableLayout(this);
     for (int i = 0; i < 10; i++) {
@@ -148,4 +114,3 @@ public class Inventory extends AppCompatActivity {
     }
     setContentView(tableLayout);
   }*/
-}

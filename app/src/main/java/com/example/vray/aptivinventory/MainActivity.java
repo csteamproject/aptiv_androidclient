@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("success value", "" + getSuccess());
         if (success) {
           Log.d("success value", "" + getSuccess());
-          Intent intent = new Intent(MainActivity.this, Inventory.class);
+          Intent intent = new Intent(MainActivity.this, homePage.class);
           getInventory(intent);
         }
       }
