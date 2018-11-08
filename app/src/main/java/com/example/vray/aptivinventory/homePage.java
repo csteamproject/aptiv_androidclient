@@ -19,7 +19,6 @@ public class homePage extends AppCompatActivity {
     private DrawerLayout dl;
     private ActionBarDrawerToggle adt;
     private NavigationView nv;
-    String data = "";
 
     public void viewInventory(Intent intent) {
         startActivity(intent);
