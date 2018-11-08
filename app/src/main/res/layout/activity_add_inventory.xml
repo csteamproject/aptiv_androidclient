@@ -25,30 +25,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="211dp"
-        android:background="@color/colorPrimary"
-        android:ems="10"
-        android:hint="Name"
-        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <EditText
         android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:background="@color/colorPrimary"
-        android:ems="10"
-        android:hint="Price"
-        android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="@+id/name"
         app:layout_constraintTop_toBottomOf="@+id/name" />
+
 
     <EditText
         android:id="@+id/quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:layout_marginTop="34dp"
         android:layout_marginEnd="1dp"
         android:background="@color/colorPrimary"
@@ -57,6 +52,7 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="@+id/price"
         app:layout_constraintTop_toBottomOf="@+id/price" />
+
 
     <Button
         android:id="@+id/additem"
@@ -91,8 +87,8 @@
         android:background="@color/colorAccent"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/flash" />
+        android:layout_marginTop="41dp"
+        android:text="Add"></View>
+
 
 </android.support.constraint.ConstraintLayout>

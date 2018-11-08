@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     login.setOnClickListener(new View.OnClickListener() {
       public void onClick(View v) {
         getLogin(user.getText(), pass.getText());
+
       }
     });
   }
