@@ -100,8 +100,14 @@ public class Inventory extends AppCompatActivity {
       for (int j = 0; j < columns.length; j++ ) {
         sectionText = new TextView(this);
         sectionText.setTextColor(Color.WHITE);
+
         try {
-          sectionText.setText(jObj.getString(columns[j]));
+          if ( j < columns.length -1 ) {
+            sectionText.setText(jObj.getString(columns[j]) + "  ");
+          }
+          else {
+            sectionText.setText(jObj.getString(columns[j]));
+          }
         } catch (JSONException e) {
           e.printStackTrace();
         }
