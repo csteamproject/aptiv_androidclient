@@ -1,6 +1,8 @@
 package com.example.vray.aptivinventory;
 
 import android.content.Intent;
+import android.graphics.Color;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -59,18 +61,35 @@ public class Inventory extends AppCompatActivity {
       public void onResponse(Object response) {
         responseArray = sc.httpParseJSON(response.toString());
         Log.d("items3", responseArray.toString());
-        createRow(responseArray);
+        String [] columns =  {"id","name","price", "quantity"};
+        createRow(responseArray, columns);
       }
     });
   }
 
 
-  //Pending implementation
-  private void createRow(JSONArray x) {
-    TableLayout tableLayout = new TableLayout(this);
+  //Generates the table with attributes
+  private void createRow(JSONArray x, String [] columns) {
+    TableLayout tableLayout = findViewById(R.id.targetTable);
+    tableLayout.setBackgroundColor(Color.BLACK);
+
+    // Generating Table column labels as first row
+    TableRow tableRow = new TableRow(this);
+    tableRow.setBackgroundColor(Color.BLACK);
+    TextView sectionText;
+
+    for (int j = 0; j < columns.length; j++ ) {
+      sectionText = new TextView(this);
+      sectionText.setTextColor(Color.WHITE);
+      sectionText.setText(columns[j].toUpperCase());
+      tableRow.addView(sectionText);
+    }
+    tableLayout.addView(tableRow);
+
+    //generating table rows from JsonArray data using columns array
     for (int i = 0; i < x.length(); i++) {
-      TableRow tableRow = new TableRow(this);
-      TextView sectionText = new TextView(this);
+      tableRow = new TableRow(this);
+      tableRow.setBackgroundColor(Color.BLACK);
 
       JSONObject jObj = null;
       try {
@@ -78,15 +97,18 @@ public class Inventory extends AppCompatActivity {
       } catch (JSONException e) {
         e.printStackTrace();
       }
-
-      try {
-      sectionText.setText( jObj.getString("id") );
-      } catch (JSONException e) {
-        e.printStackTrace();
+      for (int j = 0; j < columns.length; j++ ) {
+        sectionText = new TextView(this);
+        sectionText.setTextColor(Color.WHITE);
+        try {
+          sectionText.setText(jObj.getString(columns[j]));
+        } catch (JSONException e) {
+          e.printStackTrace();
+        }
+        tableRow.addView(sectionText);
       }
-      tableRow.addView(sectionText);
 
-      sectionText = new TextView(this);
+      /*sectionText = new TextView(this);
       try {
       sectionText.setText(jObj.getString("name"));
       } catch (JSONException e) {
@@ -109,10 +131,10 @@ public class Inventory extends AppCompatActivity {
         e.printStackTrace();
       }
       tableRow.addView(sectionText);
+      */
 
       tableLayout.addView(tableRow);
     }
-    setContentView(tableLayout);
   }
 
 }
