@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -19,7 +18,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,17 +26,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-  public boolean success = false;
-
-  public boolean getSuccess() {
-    return success;
-  }
-
-  public void setSuccess(boolean s) {
-    success = s;
-  }
-
-  public void getInventory(Intent intent) {
+  public void route(Intent intent) {
     startActivity(intent);
   }
 
@@ -54,16 +42,8 @@ public class MainActivity extends AppCompatActivity {
     login.setOnClickListener(new View.OnClickListener() {
       public void onClick(View v) {
         getLogin(user.getText(), pass.getText());
-//        setSuccess(true);
-        Log.d("success value", "" + getSuccess());
-        if (success) {
-          Log.d("success value", "" + getSuccess());
-          Intent intent = new Intent(MainActivity.this, homePage.class);
-          getInventory(intent);
-        }
       }
     });
-
   }
 
   private void getLogin(final Editable user, final Editable password) {
@@ -82,12 +62,15 @@ public class MainActivity extends AppCompatActivity {
       try {
         String saveToken = response.getString("token");
         String success = response.getString("success");
-        if (success.equals("true")) {
-          setSuccess(true);
-        }
         edit.putString("token", saveToken);
         edit.apply();
-        getToken();
+        if (success.equals("true")) {
+          Intent intent = new Intent(MainActivity.this, homePage.class);
+          route(intent);
+        } else if (success.equals("false")) {
+          Intent intent = new Intent(MainActivity.this, MainActivity.class);
+          route(intent);
+        }
       } catch (JSONException e) {
         e.printStackTrace();
       }
@@ -99,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
     }
   }) {
     @Override
-      public Map<String, String> getHeaders() throws AuthFailureError {
+      public Map<String, String> getHeaders() {
         HashMap<String, String> headers = new HashMap<String, String>();
         headers.put("username", user.toString());
         headers.put("password", password.toString());
@@ -107,11 +90,6 @@ public class MainActivity extends AppCompatActivity {
       }
     };
     queue.add(req);
-  }
-
-  public String getToken() {
-    SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-    return sharedPrefs.getString("token", "");
   }
 }
 
