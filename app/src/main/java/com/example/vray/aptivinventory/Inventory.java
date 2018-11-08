@@ -2,6 +2,7 @@ package com.example.vray.aptivinventory;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,8 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TableLayout; //for code not implemented yet
-import android.widget.TableRow;    //for code not implemented yet
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -95,12 +96,28 @@ public class Inventory extends AppCompatActivity {
   }
 
 
-  //Pending implementation
+  //Generates the table with attributes
   private void createRow(JSONArray x, String [] columns) {
-    TableLayout tableLayout = new TableLayout(this);
+    TableLayout tableLayout = findViewById(R.id.targetTable);
+    tableLayout.setBackgroundColor(Color.BLACK);
+
+    // Generating Table column labels as first row
+    TableRow tableRow = new TableRow(this);
+    tableRow.setBackgroundColor(Color.BLACK);
+    TextView sectionText;
+
+    for (int j = 0; j < columns.length; j++ ) {
+      sectionText = new TextView(this);
+      sectionText.setTextColor(Color.WHITE);
+      sectionText.setText(columns[j].toUpperCase());
+      tableRow.addView(sectionText);
+    }
+    tableLayout.addView(tableRow);
+
+    //generating table rows from JsonArray data using columns array
     for (int i = 0; i < x.length(); i++) {
-      TableRow tableRow = new TableRow(this);
-      TextView sectionText = new TextView(this);
+      tableRow = new TableRow(this);
+      tableRow.setBackgroundColor(Color.BLACK);
 
       JSONObject jObj = null;
       try {
@@ -110,6 +127,7 @@ public class Inventory extends AppCompatActivity {
       }
       for (int j = 0; j < columns.length; j++ ) {
         sectionText = new TextView(this);
+        sectionText.setTextColor(Color.WHITE);
         try {
           sectionText.setText(jObj.getString(columns[j]));
         } catch (JSONException e) {
@@ -145,7 +163,6 @@ public class Inventory extends AppCompatActivity {
 
       tableLayout.addView(tableRow);
     }
-    setContentView(tableLayout);
   }
 
 }
