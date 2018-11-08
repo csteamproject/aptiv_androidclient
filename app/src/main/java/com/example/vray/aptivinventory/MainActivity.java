@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     login.setOnClickListener(new View.OnClickListener() {
       public void onClick(View v) {
         getLogin(user.getText(), pass.getText());
-        setSuccess(true);
+//        setSuccess(true);
         Log.d("success value", "" + getSuccess());
         if (success) {
           Log.d("success value", "" + getSuccess());
