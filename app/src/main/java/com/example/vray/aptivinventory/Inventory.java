@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TableLayout; //for code not implemented yet
 import android.widget.TableRow;    //for code not implemented yet
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -28,89 +29,119 @@ import java.util.Map;
 
 public class Inventory extends AppCompatActivity {
 
-    String data = "";
-    JSONArray responseArray;
+  String data = "";
+  JSONArray responseArray;
 
-    public void getAddItem(Intent intent) {
-        startActivity(intent);
-    }
+  public void getAddItem(Intent intent) {
+    startActivity(intent);
+  }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inventory);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_inventory);
 
-        final ServerCalls sc = new ServerCalls(this);
+    final ServerCalls sc = new ServerCalls(this);
 
-        final EditText editText = findViewById(R.id.editText);
-        Button button = findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                try {
-                    getInventory(sc);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+    final EditText editText = findViewById(R.id.editText);
+    Button button = findViewById(R.id.button);
+    button.setOnClickListener(new View.OnClickListener() {
+      public void onClick(View v) {
+        try {
+          getInventory(sc);
+        } catch (JSONException e) {
+          e.printStackTrace();
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
 //        editText.setText(data);
-            }
-        });
+      }
+    });
 
-        Button additem = findViewById(R.id.additem);
-        additem.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(Inventory.this, AddInventory.class);
-                getAddItem(intent);
-            }
-        });
-    }
+    Button additem = findViewById(R.id.additem);
+    additem.setOnClickListener(new View.OnClickListener() {
+      public void onClick(View v) {
+        Intent intent = new Intent(Inventory.this, AddInventory.class);
+        getAddItem(intent);
+      }
+    });
+  }
 
-    private void getInventory(final ServerCalls sc) throws JSONException, InterruptedException {
-        final String url = "http://10.0.2.2:3000/items";
+  private void getInventory(final ServerCalls sc) throws JSONException, InterruptedException {
+    final String url = "http://10.0.2.2:3000/items";
 
-        sc.httpGetJSON(url, new ServerCalls.VolleyResponseListener() {
-            @Override
-            public void onError(String message) {
-                Log.d("items:", message);
-            }
+    sc.httpGetJSON(url, new ServerCalls.VolleyResponseListener() {
+      @Override
+      public void onError(String message) {
+        Log.d("items:", message);
+      }
 
-            @Override
-            public void onResponse(Object response) {
-                Log.d("items2", response.toString());
-                responseArray = sc.httpParseJSON(response.toString());
-                Log.d("items3", responseArray.toString());
-            }
-        });
+      @Override
+      public void onResponse(Object response) {
+        Log.d("items2", response.toString());
+        responseArray = sc.httpParseJSON(response.toString());
+        Log.d("items3", responseArray.toString());
+        createRow(responseArray);
+      }
+    });
 
-        //    for(int i = 0; i< items[0].length(); i++) {
+    //    for(int i = 0; i< items[0].length(); i++) {
 //      JSONObject jsonObject = items[0].getJSONObject(i);
 //      String jsonObjectAsString = jsonObject.toString();
 //      Log.d("jsons", jsonObjectAsString);
 //    }
 
-    }
+  }
 
-}
 
-    //Pending implementation
-  /*private void createRow( JSONArray x) {
+  //Pending implementation
+  private void createRow(JSONArray x) {
     TableLayout tableLayout = new TableLayout(this);
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < x.length(); i++) {
       TableRow tableRow = new TableRow(this);
-      Button button = new Button(this);
-      button.setText("1");
-      tableRow.addView(button);
+      TextView sectionText = new TextView(this);
 
-      button = new Button(this);
-      button.setText("2");
-      tableRow.addView(button);
+      JSONObject jObj = null;
+      try {
+        jObj = x.getJSONObject(i);
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
 
-      button = new Button(this);
-      button.setText("3");
-      tableRow.addView(button);
+      try {
+      sectionText.setText( jObj.getString("id") );
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
+      tableRow.addView(sectionText);
+
+      sectionText = new TextView(this);
+      try {
+      sectionText.setText(jObj.getString("name"));
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
+      tableRow.addView(sectionText);
+
+      sectionText = new TextView(this);
+      try {
+      sectionText.setText(jObj.getString("price"));
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
+      tableRow.addView(sectionText);
+
+      sectionText = new TextView(this);
+      try {
+      sectionText.setText(jObj.getString("quantity"));
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
+      tableRow.addView(sectionText);
 
       tableLayout.addView(tableRow);
     }
     setContentView(tableLayout);
-  }*/
+  }
+
+}
