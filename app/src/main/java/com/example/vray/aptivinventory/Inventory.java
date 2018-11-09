@@ -92,6 +92,10 @@ public class Inventory extends AppCompatActivity {
           Intent intent = new Intent(Inventory.this, AddInventory.class);
           viewInventory(intent);
         }
+        else if (id == R.id.home) {
+          Intent intent = new Intent(Inventory.this, homePage.class);
+          viewInventory(intent);
+        }
         return true;
       }
     });
@@ -178,7 +182,7 @@ public class Inventory extends AppCompatActivity {
       } catch (JSONException e) {
         e.printStackTrace();
       }
-      tableRow.addView(sectionText);
+      tableRow.addView(sectionText);_
 
       sectionText = new TextView(this);
       try {

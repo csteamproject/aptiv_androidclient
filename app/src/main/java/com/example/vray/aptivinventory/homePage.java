@@ -66,6 +66,10 @@ public class homePage extends AppCompatActivity {
                     Intent intent = new Intent(homePage.this, AddInventory.class);
                     viewInventory(intent);
                 }
+                else if (id == R.id.home) {
+                    Intent intent = new Intent(homePage.this, homePage.class);
+                    viewInventory(intent);
+                }
                 return true;
             }
         });
