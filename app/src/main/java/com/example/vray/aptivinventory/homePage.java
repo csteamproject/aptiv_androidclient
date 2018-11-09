@@ -66,8 +66,6 @@ public class homePage extends AppCompatActivity {
                     Intent intent = new Intent(homePage.this, AddInventory.class);
                     viewInventory(intent);
                 }
-
-
                 return true;
             }
         });

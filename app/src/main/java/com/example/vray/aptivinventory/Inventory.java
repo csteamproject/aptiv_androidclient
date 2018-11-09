@@ -92,8 +92,6 @@ public class Inventory extends AppCompatActivity {
           Intent intent = new Intent(Inventory.this, AddInventory.class);
           viewInventory(intent);
         }
-
-
         return true;
       }
     });
