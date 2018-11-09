@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.util.Log;
 import android.view.View;
@@ -25,7 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-
+  private DrawerLayout dl;
   public void route(Intent intent) {
     startActivity(intent);
   }
@@ -34,6 +36,17 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.login_page);
+
+    dl = (DrawerLayout) findViewById(R.id.dl);
+    Toolbar mToolBar = findViewById(R.id.toolbar);
+    setSupportActionBar(mToolBar);
+
+    if(getSupportActionBar() != null){
+      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+      getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+      getSupportActionBar().setDisplayShowTitleEnabled(false);
+    }
+
 
     final EditText user = findViewById(R.id.username);
     final EditText pass = findViewById(R.id.password);
@@ -46,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
       }
     });
   }
+
+
 
   private void getLogin(final Editable user, final Editable password) {
 

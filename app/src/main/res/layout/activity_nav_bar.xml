@@ -19,7 +19,16 @@
             android:background="@color/colorAccent"
             android:elevation="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="Toolbar_Title"
+            android:src="@drawable/aptivlogo"
+            android:layout_gravity="center"
+            android:id="@+id/toolbar_title"/>
+        </android.support.v7.widget.Toolbar>
 
 
         <TextView
