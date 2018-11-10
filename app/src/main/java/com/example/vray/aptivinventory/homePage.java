@@ -35,7 +35,7 @@ public class homePage extends AppCompatActivity {
 
 
 
-        dl = (DrawerLayout) findViewById(R.id.dl);
+        dl = findViewById(R.id.dl);
         adt = new ActionBarDrawerToggle(this, dl, R.string.Open, R.string.Close);
         adt.setDrawerIndicatorEnabled(true);
         dl.addDrawerListener(adt);
@@ -60,7 +60,7 @@ public class homePage extends AppCompatActivity {
                 int id = menuItem.getItemId();
 
                 if (id == R.id.viewInventory) {
-                    Intent intent = new Intent(homePage.this, Inventory.class);
+                    Intent intent = new Intent(homePage.this, InventoryIndex.class);
                     viewInventory(intent);
                 } else if (id == R.id.cuItem) {
                     Intent intent = new Intent(homePage.this, AddInventory.class);

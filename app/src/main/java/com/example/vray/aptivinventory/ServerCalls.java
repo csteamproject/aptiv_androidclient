@@ -31,14 +31,14 @@ class ServerCalls {
 
     public interface VolleyResponseListener {
         void onError(String message);
-        void onResponse(Object response);
+        void onResponse(Object response) throws JSONException;
     }
 
     void httpSendJSON(final String mRequestBody, final String url, final VolleyResponseListener listener) {
         RequestQueue queue = Volley.newRequestQueue(mContext);
 
         JsonObjectRequest req = new JsonObjectRequest
-                (Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
+                (Request.Method.POST, url, (String) null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("JSON Response", response.toString());
@@ -79,15 +79,23 @@ class ServerCalls {
         RequestQueue queue = Volley.newRequestQueue(mContext);
 
         JsonObjectRequest req = new JsonObjectRequest
-                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                (Request.Method.GET, url, (String) null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        listener.onResponse(response);
+                        try {
+                            listener.onResponse(response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        listener.onResponse(error.toString());
+                        try {
+                            listener.onResponse(error.toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }) {
             @Override

@@ -61,7 +61,7 @@ public class Inventory extends AppCompatActivity {
     });
 
 
-    dl = (DrawerLayout) findViewById(R.id.dl);
+    dl = findViewById(R.id.dl);
     adt = new ActionBarDrawerToggle(this, dl, R.string.Open, R.string.Close);
     adt.setDrawerIndicatorEnabled(true);
     dl.addDrawerListener(adt);

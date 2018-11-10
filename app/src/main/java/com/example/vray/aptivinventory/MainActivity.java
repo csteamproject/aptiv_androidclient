@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
     String url = "http://10.0.2.2:3000/sessions";
 
     JsonObjectRequest req = new JsonObjectRequest
-    (Request.Method.POST, url, null, new Response.Listener<JSONObject>() {
+    (Request.Method.POST, url, (String) null, new Response.Listener<JSONObject>() {
     @Override
     public void onResponse(JSONObject response) {
       Log.d("JSON Response", response.toString());
