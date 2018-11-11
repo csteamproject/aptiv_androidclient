@@ -1,5 +1,7 @@
 package com.example.vray.aptivinventory;
 
+import android.support.design.widget.FloatingActionButton;
+
 public class Item {
     private String name;
     private double price;

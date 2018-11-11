@@ -1,12 +1,16 @@
 package com.example.vray.aptivinventory;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,6 +29,9 @@ public class InventoryIndex extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     ServerCalls sc = new ServerCalls(this);
     JSONArray responseArray = new JSONArray();
+    public void getAddItem(Intent intent) {
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +39,7 @@ public class InventoryIndex extends AppCompatActivity {
         setContentView(R.layout.activity_inventory_index);
 
         mList = findViewById(R.id.main_list);
+        FloatingActionButton addItem = findViewById(R.id.addItem);
 
         itemList = new ArrayList<>();
         adapter = new ItemAdapter(getApplicationContext(),itemList);
@@ -46,6 +54,13 @@ public class InventoryIndex extends AppCompatActivity {
         mList.setAdapter(adapter);
 
         getInventory(sc);
+        addItem.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(InventoryIndex.this, AddInventory.class);
+                getAddItem(intent);
+            }
+        });
+
     }
 
     private void getInventory(final ServerCalls sc) {

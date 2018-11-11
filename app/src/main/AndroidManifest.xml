@@ -21,7 +21,8 @@
         <activity android:name=".Inventory" />
         <activity android:name=".AddInventory" />
         <activity android:name=".homePage" />
-        <activity android:name=".InventoryIndex"></activity>
+        <activity android:name=".InventoryIndex" />
+        <activity android:name=".EditItem"></activity>
     </application>
 
 </manifest>
