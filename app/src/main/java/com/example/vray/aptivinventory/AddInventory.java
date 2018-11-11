@@ -204,6 +204,19 @@ public class AddInventory extends AppCompatActivity {
       }
     });
 
+    FloatingActionButton clearText = (FloatingActionButton) findViewById(R.id.clearText);
+    clearText.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        name.setText("");
+        price.setText("");
+        quantity.setText("");
+        cpu.setText("");
+        ram.setText("");
+        hdd.setText("");
+      }
+    });
+
   }
 
   public void sendItem(ServerCalls sc, String mRequestBody) {
