@@ -14,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -24,61 +23,14 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
-public class AddInventory extends AppCompatActivity {
-
-  private DrawerLayout dl;
-  private ActionBarDrawerToggle adt;
-  private NavigationView nv;
-
-  public void viewInventory(Intent intent) {
-    startActivity(intent);
-  }
+public class AddInventory extends NavBar {
 
   final int VALUES = 5;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_add_inventory);
-
-    dl = (DrawerLayout) findViewById(R.id.dl);
-    adt = new ActionBarDrawerToggle(this, dl, R.string.Open, R.string.Close);
-    adt.setDrawerIndicatorEnabled(true);
-    dl.addDrawerListener(adt);
-    Toolbar mToolBar = findViewById(R.id.toolbar);
-    setSupportActionBar(mToolBar);
-
-    Log.d("supportActionBar value", "" + getSupportActionBar());
-
-    if(getSupportActionBar() != null){
-      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-      getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_view_list_black_24dp);
-      adt.syncState();
-      getSupportActionBar().setDisplayShowTitleEnabled(false);
-    }
-
-
-    final NavigationView nav_view = findViewById(R.id.nav_view);
-
-    nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-      @Override
-      public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        int id = menuItem.getItemId();
-
-        if (id == R.id.viewInventory) {
-          Intent intent = new Intent(AddInventory.this, Inventory.class);
-          viewInventory(intent);
-        } else if (id == R.id.cuItem) {
-          Intent intent = new Intent(AddInventory.this, AddInventory.class);
-          viewInventory(intent);
-        }
-        else if (id == R.id.home) {
-          Intent intent = new Intent(AddInventory.this, homePage.class);
-          viewInventory(intent);
-        }
-        return true;
-      }
-    });
+    super.addContentView(R.layout.activity_add_inventory);
 
     final EditText name = findViewById(R.id.name);
     name.setVisibility(View.INVISIBLE);
@@ -255,12 +207,4 @@ public class AddInventory extends AppCompatActivity {
     return JSONHash;
   }
 
-
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-    if(adt.onOptionsItemSelected(item)){
-      return true;
-    }
-    return super.onOptionsItemSelected(item);
-  }
 }

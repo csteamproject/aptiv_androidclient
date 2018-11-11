@@ -1,8 +1,10 @@
 
 package com.example.vray.aptivinventory;
 
+import android.content.Context;
 import android.content.Intent;
 
+import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -11,15 +13,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
-import android.support.v7.app.ActionBar;
+import android.view.View;
 
 
-import java.util.Objects;
-
-
-public class homePage extends AppCompatActivity {
+public class NavBar extends AppCompatActivity {
     private DrawerLayout dl;
     private ActionBarDrawerToggle adt;
     private NavigationView nv;
@@ -32,7 +32,7 @@ public class homePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav_bar);
-
+        //super.onCreate(savedInstanceState);
 
 
         dl = findViewById(R.id.dl);
@@ -60,14 +60,14 @@ public class homePage extends AppCompatActivity {
                 int id = menuItem.getItemId();
 
                 if (id == R.id.viewInventory) {
-                    Intent intent = new Intent(homePage.this, InventoryIndex.class);
+                    Intent intent = new Intent(NavBar.this, InventoryIndex.class);
                     viewInventory(intent);
                 } else if (id == R.id.cuItem) {
-                    Intent intent = new Intent(homePage.this, AddInventory.class);
+                    Intent intent = new Intent(NavBar.this, AddInventory.class);
                     viewInventory(intent);
                 }
                 else if (id == R.id.home) {
-                    Intent intent = new Intent(homePage.this, homePage.class);
+                    Intent intent = new Intent(NavBar.this, NavBar.class);
                     viewInventory(intent);
                 }
                 return true;
@@ -76,12 +76,30 @@ public class homePage extends AppCompatActivity {
 
     }
 
+    public void addContentView(int layoutId){
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View contentView = inflater.inflate(layoutId,null,false);
+        dl.addView(contentView, 0);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(adt.onOptionsItemSelected(item)){
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        adt.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        adt.onConfigurationChanged(newConfig);
     }
 
 }

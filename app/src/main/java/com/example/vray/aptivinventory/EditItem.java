@@ -6,12 +6,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
 
-public class EditItem extends AppCompatActivity {
+public class EditItem extends NavBar {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_item);
+        super.addContentView(R.layout.activity_edit_item);
 
         Integer value = getIntent().getExtras().getInt("itemid");
         Log.d("getEditItem", value.toString());

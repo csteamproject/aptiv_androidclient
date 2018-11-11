@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         edit.putString("token", saveToken);
         edit.apply();
         if (success.equals("true")) {
-          Intent intent = new Intent(MainActivity.this, homePage.class);
+          Intent intent = new Intent(MainActivity.this, NavBar.class);
           route(intent);
         } else if (success.equals("false")) {
           Intent intent = new Intent(MainActivity.this, MainActivity.class);

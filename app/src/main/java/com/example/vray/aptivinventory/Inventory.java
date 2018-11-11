@@ -93,7 +93,7 @@ public class Inventory extends AppCompatActivity {
           viewInventory(intent);
         }
         else if (id == R.id.home) {
-          Intent intent = new Intent(Inventory.this, homePage.class);
+          Intent intent = new Intent(Inventory.this, NavBar.class);
           viewInventory(intent);
         }
         return true;

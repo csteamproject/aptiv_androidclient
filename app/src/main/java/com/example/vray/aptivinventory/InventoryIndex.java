@@ -19,7 +19,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InventoryIndex extends AppCompatActivity {
+public class InventoryIndex extends NavBar {
 
     private RecyclerView mList;
 
@@ -36,7 +36,7 @@ public class InventoryIndex extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inventory_index);
+        super.addContentView(R.layout.activity_inventory_index);
 
         mList = findViewById(R.id.main_list);
         FloatingActionButton addItem = findViewById(R.id.addItem);
