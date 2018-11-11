@@ -15,5 +15,14 @@
     <string name="Open">navbar</string>
     <string name="Close">navbar</string>
 
+    <string-array name="item_array">
+        <item></item>
+        <item>Laptop/CPU</item>
+        <item>Monitor/Computer Accessories</item>
+        <item>Equipment</item>
+        <item>Installation Discs</item>
+
+    </string-array>
+
 
 </resources>

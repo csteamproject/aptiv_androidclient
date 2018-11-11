@@ -2,6 +2,7 @@ package com.example.vray.aptivinventory;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -11,8 +12,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -76,15 +80,97 @@ public class AddInventory extends AppCompatActivity {
       }
     });
 
+    final EditText name = findViewById(R.id.name);
+    name.setVisibility(View.INVISIBLE);
+    final EditText price = findViewById(R.id.price);
+    price.setVisibility(View.INVISIBLE);
+    final EditText quantity = findViewById(R.id.quantity);
+    quantity.setVisibility(View.INVISIBLE);
+    final EditText cpu = findViewById(R.id.cpu);
+    cpu.setVisibility(View.INVISIBLE);
+    final EditText ram = findViewById(R.id.ram);
+    ram.setVisibility(View.INVISIBLE);
+    final EditText hdd = findViewById(R.id.hdd);
+    hdd.setVisibility(View.INVISIBLE);
+    Spinner staticSpinner = (Spinner) findViewById(R.id.static_spinner);
+
+    ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter.createFromResource(this, R.array.item_array,
+            android.R.layout.simple_spinner_item);
+
+    staticAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    staticSpinner.setAdapter(staticAdapter);
+
+    staticSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+
+      @Override
+              public void onItemSelected(AdapterView<?> parent, View view, int postition, long id){
+
+
+
+              switch (postition){
+                case 0:
+                  name.setVisibility(View.INVISIBLE);
+                  price.setVisibility(View.INVISIBLE);
+                  quantity.setVisibility(View.INVISIBLE);
+                  cpu.setVisibility(View.INVISIBLE);
+                  ram.setVisibility(View.INVISIBLE);
+                  hdd.setVisibility(View.INVISIBLE);
+                  break;
+
+                case 1:
+                  name.setVisibility(View.VISIBLE);
+                  quantity.setVisibility(View.VISIBLE);
+                  price.setVisibility(View.VISIBLE);
+                  cpu.setVisibility(View.VISIBLE);
+                  ram.setVisibility(View.VISIBLE);
+                  hdd.setVisibility(View.VISIBLE);
+                  break;
+
+                case 2:
+                  name.setVisibility(View.VISIBLE);
+                  quantity.setVisibility(View.VISIBLE);
+                  price.setVisibility(View.VISIBLE);
+                  cpu.setVisibility(View.INVISIBLE);
+                  ram.setVisibility(View.INVISIBLE);
+                  hdd.setVisibility(View.INVISIBLE);
+                  break;
+
+                case 3:
+                  name.setVisibility(View.VISIBLE);
+                  quantity.setVisibility(View.VISIBLE);
+                  price.setVisibility(View.VISIBLE);
+                  cpu.setVisibility(View.INVISIBLE);
+                  ram.setVisibility(View.INVISIBLE);
+                  hdd.setVisibility(View.INVISIBLE);
+                  break;
+
+                case 4:
+                  name.setVisibility(View.VISIBLE);
+                  quantity.setVisibility(View.VISIBLE);
+                  price.setVisibility(View.VISIBLE);
+                  cpu.setVisibility(View.INVISIBLE);
+                  ram.setVisibility(View.INVISIBLE);
+                  hdd.setVisibility(View.INVISIBLE);
+                  break;
+              }
+      }
+
+      @Override
+      public void onNothingSelected(AdapterView<?> parent) {
+
+      }
+
+
+    });
+
+
     final ServerCalls sc = new ServerCalls(this);
 
-    final EditText name = findViewById(R.id.name);
-    final EditText price = findViewById(R.id.price);
-    final EditText quantity = findViewById(R.id.quantity);
     final String[] hashes = new String[VALUES*2-1];
 
     final TextView flash = findViewById(R.id.flash);
-    Button add = findViewById(R.id.additem);
+    //Button add = findViewById(R.id.additem);
+    FloatingActionButton add = (FloatingActionButton) findViewById(R.id.additem);
     add.setOnClickListener(new View.OnClickListener() {
       public void onClick(View v) {
 
@@ -99,7 +185,13 @@ public class AddInventory extends AppCompatActivity {
 
         hashes[6] = "computer_attributes";
         hashes[7] = "utag";
-        hashes[8] = "U578945";
+        hashes[8] = "U578945";/**
+        hashes[9] = "cpu";
+        hashes[10] = cpu.getText().toString();
+        hashes[11] = "ram";
+        hashes[12] = ram.getText().toString();
+        hashes[13] = "hdd";
+        hashes[14] = hdd.getText().toString();**/
 
         String mRequestBody = "";
         try {
