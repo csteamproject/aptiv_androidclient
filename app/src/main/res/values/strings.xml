@@ -16,7 +16,7 @@
     <string name="Close">navbar</string>
 
     <string-array name="item_array">
-        <item></item>
+        <item>Select item</item>
         <item>Laptop/CPU</item>
         <item>Monitor/Computer Accessories</item>
         <item>Equipment</item>

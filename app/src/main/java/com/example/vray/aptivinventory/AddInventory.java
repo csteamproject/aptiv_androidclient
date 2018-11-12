@@ -135,8 +135,8 @@ public class AddInventory extends NavBar {
           hashes[11] = "hdd";
           hashes[12] = hdd.getText().toString();
         }
-
-        String mRequestBody = "";
+        if ((!hashes[1].equals("")) && (!hashes[5].equals(""))){
+          String mRequestBody = "";
         try {
           mRequestBody = getJSONString(hashes, 0).toString();
         } catch (JSONException e) {
@@ -144,7 +144,10 @@ public class AddInventory extends NavBar {
         }
         sendItem(sc, mRequestBody);
       }
+        }
+
     });
+
 
     FloatingActionButton clearText = findViewById(R.id.clearText);
     clearText.setOnClickListener(new View.OnClickListener() {
@@ -160,6 +163,7 @@ public class AddInventory extends NavBar {
     });
 
   }
+
 
   public void sendItem(ServerCalls sc, String mRequestBody) {
     String url = "http://10.0.2.2:3000/items";

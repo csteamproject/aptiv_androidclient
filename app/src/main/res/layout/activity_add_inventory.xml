@@ -1,134 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:visibility="visible">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <Spinner
+        android:id="@+id/static_spinner"
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="72dp"
+        android:backgroundTint="@color/ic_launcher_background"></Spinner>
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/additem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="26dp"
+        android:layout_marginBottom="39dp"
+        android:clickable="true"
+        app:backgroundTint="@color/ic_launcher_background"
+        app:srcCompat="@android:drawable/ic_input_add" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="82dp"
+        android:layout_marginTop="128dp"
         android:background="@color/colorPrimaryDark"
-        android:visibility="visible">
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        android:textColor="@color/colorPrimary"
+        android:textColorHint="@color/colorPrimary" />
 
-        <Spinner
-            android:id="@+id/static_spinner"
-            android:layout_width="fill_parent"
-            android:layout_height="35dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="72dp"
-            android:backgroundTint="@color/colorPrimary"></Spinner>
+    <EditText
+        android:id="@+id/quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="82dp"
+        android:layout_marginTop="158dp"
+        android:background="@color/colorPrimaryDark"
+        android:ems="10"
+        android:hint="Quantity"
+        android:inputType="textPersonName"
+        android:textColor="@color/colorPrimary"
+        android:textColorHint="@color/colorPrimary" />
 
+    <EditText
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="82dp"
+        android:layout_marginTop="188dp"
+        android:background="@color/colorPrimaryDark"
+        android:ems="10"
+        android:hint="Price"
+        android:inputType="textPersonName"
+        android:textColor="@color/colorPrimary"
+        android:textColorHint="@color/colorPrimary" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/additem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="26dp"
-            android:layout_marginBottom="39dp"
-            android:clickable="true"
-            app:backgroundTint="@color/ic_launcher_background"
-            app:srcCompat="@android:drawable/ic_input_add" />
+    <EditText
+        android:id="@+id/cpu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="82dp"
+        android:layout_marginTop="218dp"
+        android:background="@color/colorPrimaryDark"
+        android:ems="10"
+        android:hint="Cpu"
+        android:inputType="textPersonName"
+        android:textColor="@color/colorPrimary"
+        android:textColorHint="@color/colorPrimary" />
 
-        <EditText
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="82dp"
-            android:layout_marginTop="128dp"
-            android:background="@color/colorPrimary"
-            android:ems="10"
-            android:hint="Name"
-            android:inputType="textPersonName" />
+    <EditText
+        android:id="@+id/ram"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="82dp"
+        android:layout_marginTop="248dp"
+        android:background="@color/colorPrimaryDark"
+        android:ems="10"
+        android:hint="Ram"
+        android:inputType="textPersonName"
+        android:textColor="@color/colorPrimary"
+        android:textColorHint="@color/colorPrimary" />
 
-        <EditText
-            android:id="@+id/quantity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="82dp"
-            android:layout_marginTop="158dp"
-            android:background="@color/colorPrimary"
-            android:ems="10"
-            android:hint="Quantity"
-            android:inputType="textPersonName" />
+    <EditText
+        android:id="@+id/hdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="82dp"
+        android:layout_marginTop="278dp"
+        android:background="@color/colorPrimaryDark"
+        android:ems="10"
+        android:hint="HDD"
+        android:inputType="textPersonName"
+        android:textColor="@color/colorPrimary"
+        android:textColorHint="@color/colorPrimary" />
 
-        <EditText
-            android:id="@+id/price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="82dp"
-            android:layout_marginTop="188dp"
-            android:background="@color/colorPrimary"
-            android:ems="10"
-            android:hint="Price"
-            android:inputType="textPersonName" />
+    <TextView
+        android:id="@+id/flash"
+        android:layout_width="115dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="112dp"
+        android:layout_marginBottom="194dp"
+        android:textColor="@color/ic_launcher_background" />
 
-        <EditText
-            android:id="@+id/cpu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="82dp"
-            android:layout_marginTop="218dp"
-            android:background="@color/colorPrimary"
-            android:ems="10"
-            android:hint="Cpu"
-            android:inputType="textPersonName" />
-
-        <EditText
-            android:id="@+id/ram"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="82dp"
-            android:layout_marginTop="248dp"
-            android:background="@color/colorPrimary"
-            android:ems="10"
-            android:hint="Ram"
-            android:inputType="textPersonName" />
-
-        <EditText
-            android:id="@+id/hdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="82dp"
-            android:layout_marginTop="278dp"
-            android:background="@color/colorPrimary"
-            android:ems="10"
-            android:hint="HDD"
-            android:inputType="textPersonName" />
-
-        <TextView
-            android:id="@+id/flash"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="153dp"
-            android:layout_marginBottom="194dp" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/clearText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="26dp"
-            android:layout_marginBottom="39dp"
-            android:clickable="true"
-            app:backgroundTint="@color/ic_launcher_background"
-            app:srcCompat="@android:drawable/ic_delete" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/clearText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="26dp"
+        android:layout_marginBottom="39dp"
+        android:clickable="true"
+        app:backgroundTint="@color/ic_launcher_background"
+        app:srcCompat="@android:drawable/ic_delete" />
 </RelativeLayout>
