@@ -20,18 +20,6 @@
         android:backgroundTint="@color/ic_launcher_background"></Spinner>
 
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/additem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="26dp"
-        android:layout_marginBottom="39dp"
-        android:clickable="true"
-        app:backgroundTint="@color/ic_launcher_background"
-        app:srcCompat="@android:drawable/ic_input_add" />
-
     <EditText
         android:id="@+id/name"
         android:layout_width="wrap_content"
@@ -143,4 +131,15 @@
         android:clickable="true"
         app:backgroundTint="@color/ic_launcher_background"
         app:srcCompat="@android:drawable/ic_delete" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/additem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/clearText"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="26dp"
+        android:clickable="true"
+        app:backgroundTint="@color/ic_launcher_background"
+        app:srcCompat="@drawable/ic_check_black_24dp" />
 </RelativeLayout>
