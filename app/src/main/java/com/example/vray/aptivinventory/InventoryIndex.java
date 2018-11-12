@@ -21,71 +21,72 @@ import java.util.List;
 
 public class InventoryIndex extends NavBar {
 
-    private RecyclerView mList;
+  private RecyclerView mList;
 
-    private LinearLayoutManager linearLayoutManager;
-    private DividerItemDecoration dividerItemDecoration;
-    private List<Item> itemList;
-    private RecyclerView.Adapter adapter;
-    ServerCalls sc = new ServerCalls(this);
-    JSONArray responseArray = new JSONArray();
-    public void getAddItem(Intent intent) {
-        startActivity(intent);
-    }
+  private LinearLayoutManager linearLayoutManager;
+  private DividerItemDecoration dividerItemDecoration;
+  private List<Item> itemList;
+  private RecyclerView.Adapter adapter;
+  ServerCalls sc = new ServerCalls(this);
+  JSONArray responseArray = new JSONArray();
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        super.addContentView(R.layout.activity_inventory_index);
+  public void getAddItem(Intent intent) {
+    startActivity(intent);
+  }
 
-        mList = findViewById(R.id.main_list);
-        FloatingActionButton addItem = findViewById(R.id.addItem);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    super.addContentView(R.layout.activity_inventory_index);
 
-        itemList = new ArrayList<>();
-        adapter = new ItemAdapter(getApplicationContext(),itemList);
+    mList = findViewById(R.id.main_list);
+    FloatingActionButton addItem = findViewById(R.id.addItem);
 
-        linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        dividerItemDecoration = new DividerItemDecoration(mList.getContext(), linearLayoutManager.getOrientation());
+    itemList = new ArrayList<>();
+    adapter = new ItemAdapter(getApplicationContext(), itemList);
 
-        mList.setHasFixedSize(true);
-        mList.setLayoutManager(linearLayoutManager);
-        mList.addItemDecoration(dividerItemDecoration);
-        mList.setAdapter(adapter);
+    linearLayoutManager = new LinearLayoutManager(this);
+    linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+    dividerItemDecoration = new DividerItemDecoration(mList.getContext(), linearLayoutManager.getOrientation());
 
-        getInventory(sc);
-        addItem.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(InventoryIndex.this, AddInventory.class);
-                getAddItem(intent);
-            }
-        });
+    mList.setHasFixedSize(true);
+    mList.setLayoutManager(linearLayoutManager);
+    mList.addItemDecoration(dividerItemDecoration);
+    mList.setAdapter(adapter);
 
-    }
+    getInventory(sc);
+    addItem.setOnClickListener(new View.OnClickListener() {
+      public void onClick(View v) {
+        Intent intent = new Intent(InventoryIndex.this, AddInventory.class);
+        getAddItem(intent);
+      }
+    });
 
-    private void getInventory(final ServerCalls sc) {
-        final String url = "http://10.0.2.2:3000/items";
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading...");
-        progressDialog.show();
+  }
 
-        sc.httpGetJSON(url, new ServerCalls.VolleyResponseListener() {
-            @Override
-            public void onError(String message) {
-                Log.d("Get Error", message);
-            }
+  private void getInventory(final ServerCalls sc) {
+    final String url = "http://10.0.2.2:3000/items";
+    final ProgressDialog progressDialog = new ProgressDialog(this);
+    progressDialog.setMessage("Loading...");
+    progressDialog.show();
 
-            @Override
-            public void onResponse(Object response) throws JSONException {
-                responseArray = sc.httpParseJSON(response.toString());
-                for (int i = 0; i < responseArray.length(); i++) {
-                    JSONObject jsonObject = responseArray.getJSONObject(i);
-                    Item item = new Item(jsonObject.getString("name"), jsonObject.getDouble("price"), jsonObject.getInt("quantity"));
-                    itemList.add(item);
-                }
-                adapter.notifyDataSetChanged();
-                progressDialog.dismiss();
-            }
-        });
-    }
+    sc.httpGetJSON(url, new ServerCalls.VolleyResponseListener() {
+      @Override
+      public void onError(String message) {
+        Log.d("Get Error", message);
+      }
+
+      @Override
+      public void onResponse(Object response) throws JSONException {
+        responseArray = sc.httpParseJSON(response.toString());
+        for (int i = 0; i < responseArray.length(); i++) {
+          JSONObject jsonObject = responseArray.getJSONObject(i);
+          Item item = new Item(jsonObject.getString("name"), jsonObject.getDouble("price"), jsonObject.getInt("quantity"), 1);
+          itemList.add(item);
+        }
+        adapter.notifyDataSetChanged();
+        progressDialog.dismiss();
+      }
+    });
+  }
 }

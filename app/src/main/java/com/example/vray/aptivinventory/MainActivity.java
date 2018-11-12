@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -27,7 +28,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-  private DrawerLayout dl;
   public void route(Intent intent) {
     startActivity(intent);
   }
@@ -36,8 +36,7 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.login_page);
-
-    dl = (DrawerLayout) findViewById(R.id.dl);
+    
     Toolbar mToolBar = findViewById(R.id.toolbar);
     setSupportActionBar(mToolBar);
 
@@ -61,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
   }
 
 
-
   private void getLogin(final Editable user, final Editable password) {
 
     final SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -78,17 +76,22 @@ public class MainActivity extends AppCompatActivity {
       try {
         String saveToken = response.getString("token");
         String success = response.getString("success");
+        String firstName = response.getString("first");
+        String lastName = response.getString("last");
+        String role = response.getString("role");
+
         edit.putString("token", saveToken);
+        edit.putString("firstName", firstName);
+        edit.putString("lastName", lastName);
+        edit.putString("role", role);
         edit.apply();
         if (success.equals("true")) {
           Intent intent = new Intent(MainActivity.this, NavBar.class);
           route(intent);
-        } else if (success.equals("false")) {
-          Intent intent = new Intent(MainActivity.this, MainActivity.class);
-          route(intent);
         }
-      } catch (JSONException e) {
-        e.printStackTrace();
+      } catch (Exception e) {
+        Toast.makeText(MainActivity.this, "Login Failed!",
+                Toast.LENGTH_LONG).show();
       }
     }
   }, new Response.ErrorListener() {
