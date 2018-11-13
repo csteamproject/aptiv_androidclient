@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -143,6 +144,8 @@ public class AddInventory extends NavBar {
           e.printStackTrace();
         }
         sendItem(sc, mRequestBody);
+          Toast.makeText(AddInventory.this, "Item added successfully!",
+                  Toast.LENGTH_LONG).show();
       }
         }
 
@@ -166,7 +169,8 @@ public class AddInventory extends NavBar {
 
 
   public void sendItem(ServerCalls sc, String mRequestBody) {
-    String url = "http://10.0.2.2:3000/items";
+    //String url = "http://10.0.2.2:3000/items";
+    String url = "https://aptiv-api.herokuapp.com/items";
 
     sc.httpSendJSON(mRequestBody, url, new ServerCalls.VolleyResponseListener() {
       @Override

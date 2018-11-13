@@ -39,6 +39,7 @@ public class InventoryIndex extends NavBar {
     super.onCreate(savedInstanceState);
     super.addContentView(R.layout.activity_inventory_index);
 
+
     mList = findViewById(R.id.main_list);
     FloatingActionButton addItem = findViewById(R.id.addItem);
 
@@ -65,7 +66,8 @@ public class InventoryIndex extends NavBar {
   }
 
   private void getInventory(final ServerCalls sc) {
-    final String url = "http://10.0.2.2:3000/items";
+    //final String url = "http://10.0.2.2:3000/items";
+    final String url = "https://aptiv-api.herokuapp.com/items";
     final ProgressDialog progressDialog = new ProgressDialog(this);
     progressDialog.setMessage("Loading...");
     progressDialog.show();

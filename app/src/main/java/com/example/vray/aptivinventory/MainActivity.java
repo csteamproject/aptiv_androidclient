@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     startActivity(intent);
   }
 
+  public static String userName;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -50,9 +52,11 @@ public class MainActivity extends AppCompatActivity {
     final EditText user = findViewById(R.id.username);
     final EditText pass = findViewById(R.id.password);
 
+
     Button login = findViewById(R.id.login);
     login.setOnClickListener(new View.OnClickListener() {
       public void onClick(View v) {
+        userName = user.getText().toString();
         getLogin(user.getText(), pass.getText());
 
       }
@@ -66,7 +70,9 @@ public class MainActivity extends AppCompatActivity {
     final SharedPreferences.Editor edit = sharedPref.edit();
 
     RequestQueue queue = Volley.newRequestQueue(this);
-    String url = "http://10.0.2.2:3000/sessions";
+    //String url = "http://10.0.2.2:3000/sessions";
+    String url ="https://aptiv-api.herokuapp.com/sessions";
+
 
     JsonObjectRequest req = new JsonObjectRequest
     (Request.Method.POST, url, (String) null, new Response.Listener<JSONObject>() {
@@ -109,6 +115,11 @@ public class MainActivity extends AppCompatActivity {
       }
     };
     queue.add(req);
+  }
+
+
+  public static String getUserName(){
+    return userName;
   }
 }
 

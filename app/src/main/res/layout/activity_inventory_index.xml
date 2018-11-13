@@ -1,21 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InventoryIndex">
+    android:layout_marginTop="?attr/actionBarSize"
+    android:layout_alignTop="?attr/actionBarSize"
+    android:layout_alignStart="?attr/actionBarSize"
+    tools:context=".InventoryIndex"
+
+    >
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/main_list"
-        android:layout_width="0dp"
-        android:layout_height="700dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:maxHeight="?attr/actionBarSize"
+        app:layout_constrainedHeight="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_goneMarginRight="?attr/actionBarSize"
+        app:layout_goneMarginStart="?attr/actionBarSize"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_alignTop="?attr/actionBarSize"
+        android:layout_alignStart="?attr/actionBarSize"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addItem"
@@ -30,3 +39,4 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
+

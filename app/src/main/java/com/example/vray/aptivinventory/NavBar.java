@@ -17,9 +17,11 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
+import com.example.vray.aptivinventory.MainActivity;
 
 
-public class NavBar extends AppCompatActivity {
+public class NavBar extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
   private DrawerLayout dl;
   private ActionBarDrawerToggle adt;
   private NavigationView nv;
@@ -54,7 +56,14 @@ public class NavBar extends AppCompatActivity {
 
     final NavigationView nav_view = findViewById(R.id.nav_view);
 
+    final String username = MainActivity.userName;
+    nav_view.setNavigationItemSelectedListener(this);
+    TextView profile = (TextView) nav_view.getHeaderView(0).findViewById(R.id.user);
+    profile.setText(username);
+
+
     nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
       @Override
       public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
@@ -90,17 +99,9 @@ public class NavBar extends AppCompatActivity {
   }
 
   @Override
-  protected void onPostCreate(Bundle savedInstanceState) {
-    super.onPostCreate(savedInstanceState);
-    adt.syncState();
+  public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+    return false;
   }
-
-  @Override
-  public void onConfigurationChanged(Configuration newConfig) {
-    super.onConfigurationChanged(newConfig);
-    adt.onConfigurationChanged(newConfig);
-  }
-
 }
 
 
