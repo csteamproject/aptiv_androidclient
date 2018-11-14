@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public static String userName;
+  public static String url = "http://10.0.2.2:3000/";
+//  public static String url ="https://aptiv-api.herokuapp.com/";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -70,12 +72,9 @@ public class MainActivity extends AppCompatActivity {
     final SharedPreferences.Editor edit = sharedPref.edit();
 
     RequestQueue queue = Volley.newRequestQueue(this);
-    //String url = "http://10.0.2.2:3000/sessions";
-    String url ="https://aptiv-api.herokuapp.com/sessions";
-
 
     JsonObjectRequest req = new JsonObjectRequest
-    (Request.Method.POST, url, (String) null, new Response.Listener<JSONObject>() {
+    (Request.Method.POST, url+"sessions", (String) null, new Response.Listener<JSONObject>() {
     @Override
     public void onResponse(JSONObject response) {
       Log.d("JSON Response", response.toString());
@@ -85,11 +84,13 @@ public class MainActivity extends AppCompatActivity {
         String firstName = response.getString("first");
         String lastName = response.getString("last");
         String role = response.getString("role");
+        String userID = response.getString("id");
 
         edit.putString("token", saveToken);
         edit.putString("firstName", firstName);
         edit.putString("lastName", lastName);
         edit.putString("role", role);
+        edit.putString("userID", userID);
         edit.apply();
         if (success.equals("true")) {
           Intent intent = new Intent(MainActivity.this, NavBar.class);
@@ -115,11 +116,6 @@ public class MainActivity extends AppCompatActivity {
       }
     };
     queue.add(req);
-  }
-
-
-  public static String getUserName(){
-    return userName;
   }
 }
 

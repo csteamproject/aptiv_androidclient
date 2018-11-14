@@ -32,6 +32,7 @@ public class InventoryIndex extends NavBar {
 
   public void getAddItem(Intent intent) {
     startActivity(intent);
+    finish();
   }
 
   @Override
@@ -66,13 +67,11 @@ public class InventoryIndex extends NavBar {
   }
 
   private void getInventory(final ServerCalls sc) {
-    //final String url = "http://10.0.2.2:3000/items";
-    final String url = "https://aptiv-api.herokuapp.com/items";
     final ProgressDialog progressDialog = new ProgressDialog(this);
     progressDialog.setMessage("Loading...");
     progressDialog.show();
 
-    sc.httpGetJSON(url, new ServerCalls.VolleyResponseListener() {
+    sc.httpGetJSON(MainActivity.url+"items", new ServerCalls.VolleyResponseListener() {
       @Override
       public void onError(String message) {
         Log.d("Get Error", message);
@@ -83,7 +82,8 @@ public class InventoryIndex extends NavBar {
         responseArray = sc.httpParseJSON(response.toString());
         for (int i = 0; i < responseArray.length(); i++) {
           JSONObject jsonObject = responseArray.getJSONObject(i);
-          Item item = new Item(jsonObject.getString("name"), jsonObject.getDouble("price"), jsonObject.getInt("quantity"), 1);
+          Item item = new Item(jsonObject.getInt("id"), jsonObject.getString("name"), jsonObject.getDouble("price"),
+                  jsonObject.getInt("quantity"), jsonObject.getInt("user_id"));
           itemList.add(item);
         }
         adapter.notifyDataSetChanged();

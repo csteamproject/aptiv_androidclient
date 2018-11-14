@@ -139,13 +139,19 @@ public class AddInventory extends NavBar {
         if ((!hashes[1].equals("")) && (!hashes[5].equals(""))){
           String mRequestBody = "";
         try {
-          mRequestBody = getJSONString(hashes, 0).toString();
+          mRequestBody = sc.getJSONString(hashes, 0).toString();
         } catch (JSONException e) {
           e.printStackTrace();
         }
         sendItem(sc, mRequestBody);
           Toast.makeText(AddInventory.this, "Item added successfully!",
                   Toast.LENGTH_LONG).show();
+          name.setText("");
+          price.setText("");
+          quantity.setText("");
+          cpu.setText("");
+          ram.setText("");
+          hdd.setText("");
       }
         }
 
@@ -167,12 +173,8 @@ public class AddInventory extends NavBar {
 
   }
 
-
   public void sendItem(ServerCalls sc, String mRequestBody) {
-    //String url = "http://10.0.2.2:3000/items";
-    String url = "https://aptiv-api.herokuapp.com/items";
-
-    sc.httpSendJSON(mRequestBody, url, new ServerCalls.VolleyResponseListener() {
+    sc.httpSendJSON(mRequestBody, MainActivity.url + "items", new ServerCalls.VolleyResponseListener() {
       @Override
       public void onError(String message) {
         Log.d("Get Error", message);
@@ -186,27 +188,27 @@ public class AddInventory extends NavBar {
     });
   }
 
-  public JSONObject getJSONString(String[] hashes, int offset) throws JSONException {
-    final JSONObject JSONHash = new JSONObject();
-    String collection = "";
-
-    for (String hash : hashes) {
-      if (hash == null){
-        return JSONHash;
-      }
-      if (!collection.equals("")) {
-        JSONHash.put(collection, hash);
-        collection = "";
-        offset++;
-      } else if (hash.contains("_attributes")) {
-        String[] newArray = Arrays.copyOfRange(hashes, offset + 1, hashes.length);
-        return JSONHash.put(hash, getJSONString(newArray, offset));
-      } else {
-        collection = hash;
-        offset++;
-      }
-    }
-    return JSONHash;
-  }
+//  public JSONObject getJSONString(String[] hashes, int offset) throws JSONException {
+//    final JSONObject JSONHash = new JSONObject();
+//    String collection = "";
+//
+//    for (String hash : hashes) {
+//      if (hash == null){
+//        return JSONHash;
+//      }
+//      if (!collection.equals("")) {
+//        JSONHash.put(collection, hash);
+//        collection = "";
+//        offset++;
+//      } else if (hash.contains("_attributes")) {
+//        String[] newArray = Arrays.copyOfRange(hashes, offset + 1, hashes.length);
+//        return JSONHash.put(hash, getJSONString(newArray, offset));
+//      } else {
+//        collection = hash;
+//        offset++;
+//      }
+//    }
+//    return JSONHash;
+//  }
 
 }
