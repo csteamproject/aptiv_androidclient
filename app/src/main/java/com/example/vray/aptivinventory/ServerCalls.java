@@ -148,8 +148,43 @@ class ServerCalls {
     queue.add(req);
   }
 
-  void httpDelete() {
+  void httpDelete(final String url, final VolleyResponseListener listener) {
+    RequestQueue queue = Volley.newRequestQueue(mContext);
 
+    JsonObjectRequest req = new JsonObjectRequest
+            (Request.Method.DELETE, url, (String) null, new Response.Listener<JSONObject>() {
+              @Override
+              public void onResponse(JSONObject response) {
+                try {
+                  listener.onResponse(response);
+                } catch (JSONException e) {
+                  e.printStackTrace();
+                }
+              }
+            }, new Response.ErrorListener() {
+              @Override
+              public void onErrorResponse(VolleyError error) {
+                try {
+                  listener.onResponse(error);
+                } catch (JSONException e) {
+                  e.printStackTrace();
+                }
+              }
+            }) {
+      @Override
+      public String getBodyContentType() {
+        return "application/json; charset=utf-8";
+      }
+
+      @Override
+      public Map<String, String> getHeaders() {
+        HashMap<String, String> headers = new HashMap<>();
+        headers.put("jwt-token", getToken());
+        headers.put("Content-Type", getBodyContentType());
+        return headers;
+      }
+    };
+    queue.add(req);
   }
 
   JSONArray httpParseJSON(String parser) {

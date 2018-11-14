@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONException;
 
 import java.util.List;
 
@@ -49,6 +52,25 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
                 getEditItem(intent);
             }
         });
+        holder.deleteItem.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          ServerCalls sc = new ServerCalls(mContext);
+          sc.httpDelete(MainActivity.url + "items/" + list.get(position).getItemid(), new ServerCalls.VolleyResponseListener() {
+            @Override
+            public void onError(String message) {
+              Log.d("Get Error", message);
+            }
+
+            @Override
+            public void onResponse(Object response) {
+              Toast.makeText(mContext, "Item deleted!",
+                      Toast.LENGTH_SHORT).show();
+            }
+          });
+        }
+      });
+
     }
 
     @Override
@@ -59,10 +81,12 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView textName, textPrice, textQuantity;
         public Button editItem;
+        public Button deleteItem;
 
         public ViewHolder(View itemView) {
             super(itemView);
             editItem = itemView.findViewById(R.id.editItem);
+            deleteItem = itemView.findViewById(R.id.deleteItem);
 
             textName = itemView.findViewById(R.id.main_title);
             textPrice = itemView.findViewById(R.id.main_price);

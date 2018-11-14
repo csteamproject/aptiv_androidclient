@@ -10,15 +10,11 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.Arrays;
 
 public class AddInventory extends NavBar {
 
-  int VALUES = 13;
+  int VALUES = 15;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +63,6 @@ public class AddInventory extends NavBar {
             cpu.setVisibility(View.VISIBLE);
             ram.setVisibility(View.VISIBLE);
             hdd.setVisibility(View.VISIBLE);
-            VALUES = 13;
             break;
 
           case 2:
@@ -77,7 +72,7 @@ public class AddInventory extends NavBar {
             cpu.setVisibility(View.INVISIBLE);
             ram.setVisibility(View.INVISIBLE);
             hdd.setVisibility(View.INVISIBLE);
-            VALUES = 6;
+            VALUES = 8;
             break;
 
           case 3:
@@ -87,7 +82,7 @@ public class AddInventory extends NavBar {
             cpu.setVisibility(View.INVISIBLE);
             ram.setVisibility(View.INVISIBLE);
             hdd.setVisibility(View.INVISIBLE);
-            VALUES = 6;
+            VALUES = 8;
             break;
 
           case 4:
@@ -97,7 +92,7 @@ public class AddInventory extends NavBar {
             cpu.setVisibility(View.INVISIBLE);
             ram.setVisibility(View.INVISIBLE);
             hdd.setVisibility(View.INVISIBLE);
-            VALUES = 6;
+            VALUES = 8;
             break;
         }
       }
@@ -127,15 +122,19 @@ public class AddInventory extends NavBar {
         hashes[4] = "quantity";
         hashes[5] = quantity.getText().toString();
 
-        if (VALUES == 13) {
-          hashes[6] = "computer_attributes";
-          hashes[7] = "cpu";
-          hashes[8] = cpu.getText().toString();
-          hashes[9] = "ram";
-          hashes[10] = ram.getText().toString();
-          hashes[11] = "hdd";
-          hashes[12] = hdd.getText().toString();
+        hashes[6] = "user_id";
+        hashes[7] = sc.getUserID();
+
+        if (VALUES == 15) {
+          hashes[8] = "computer_attributes";
+          hashes[9] = "cpu";
+          hashes[10] = cpu.getText().toString();
+          hashes[11] = "ram";
+          hashes[12] = ram.getText().toString();
+          hashes[13] = "hdd";
+          hashes[14] = hdd.getText().toString();
         }
+
         if ((!hashes[1].equals("")) && (!hashes[5].equals(""))){
           String mRequestBody = "";
         try {
