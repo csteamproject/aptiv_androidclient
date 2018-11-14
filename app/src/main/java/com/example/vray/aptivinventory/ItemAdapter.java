@@ -35,7 +35,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         Item item = list.get(position);
 
         holder.textName.setText(item.getName());
@@ -66,6 +66,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             public void onResponse(Object response) {
               Toast.makeText(mContext, "Item deleted!",
                       Toast.LENGTH_SHORT).show();
+              ItemAdapter.this.list.remove(list.get(position));
+              ItemAdapter.this.notifyDataSetChanged();
             }
           });
         }
