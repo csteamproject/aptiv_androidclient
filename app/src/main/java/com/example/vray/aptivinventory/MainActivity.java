@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public static String userName;
-  public static String url = "http://10.0.2.2:3000/";
-//  public static String url ="https://aptiv-api.herokuapp.com/";
+ // public static String url = "http://10.0.2.2:3000/";
+ public static String url ="https://aptiv-api.herokuapp.com/";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
