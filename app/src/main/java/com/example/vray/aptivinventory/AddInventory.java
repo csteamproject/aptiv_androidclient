@@ -129,7 +129,7 @@ public class AddInventory extends NavBar {
       public void onClick(View v) {
         new AlertDialog.Builder(AddInventory.this)
                 .setTitle("Confirm addition")
-                .setMessage("Are you sure you wan to add item?")
+                .setMessage("Are you sure you want to add item?")
                 .setPositiveButton("ADD", new DialogInterface.OnClickListener() {
                   @Override
                   public void onClick(DialogInterface dialog, int which) {
