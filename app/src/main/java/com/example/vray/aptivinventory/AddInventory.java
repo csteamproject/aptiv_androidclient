@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 import org.json.JSONException;
@@ -33,6 +34,8 @@ public class AddInventory extends NavBar {
     ram.setVisibility(View.INVISIBLE);
     final EditText hdd = findViewById(R.id.hdd);
     hdd.setVisibility(View.INVISIBLE);
+    final ImageButton money = findViewById(R.id.money);
+    money.setVisibility(View.INVISIBLE);
     Spinner staticSpinner = findViewById(R.id.static_spinner);
 
     ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter.createFromResource(this, R.array.item_array,
@@ -54,6 +57,8 @@ public class AddInventory extends NavBar {
             cpu.setVisibility(View.INVISIBLE);
             ram.setVisibility(View.INVISIBLE);
             hdd.setVisibility(View.INVISIBLE);
+            money.setVisibility(View.INVISIBLE);
+
             break;
 
           case 1:
@@ -63,6 +68,8 @@ public class AddInventory extends NavBar {
             cpu.setVisibility(View.VISIBLE);
             ram.setVisibility(View.VISIBLE);
             hdd.setVisibility(View.VISIBLE);
+            money.setVisibility(View.VISIBLE);
+
             break;
 
           case 2:
@@ -72,6 +79,8 @@ public class AddInventory extends NavBar {
             cpu.setVisibility(View.INVISIBLE);
             ram.setVisibility(View.INVISIBLE);
             hdd.setVisibility(View.INVISIBLE);
+            money.setVisibility(View.VISIBLE);
+
             VALUES = 8;
             break;
 
@@ -82,6 +91,8 @@ public class AddInventory extends NavBar {
             cpu.setVisibility(View.INVISIBLE);
             ram.setVisibility(View.INVISIBLE);
             hdd.setVisibility(View.INVISIBLE);
+            money.setVisibility(View.VISIBLE);
+
             VALUES = 8;
             break;
 
@@ -92,6 +103,8 @@ public class AddInventory extends NavBar {
             cpu.setVisibility(View.INVISIBLE);
             ram.setVisibility(View.INVISIBLE);
             hdd.setVisibility(View.INVISIBLE);
+            money.setVisibility(View.VISIBLE);
+
             VALUES = 8;
             break;
         }

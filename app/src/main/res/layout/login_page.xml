@@ -80,9 +80,9 @@
             android:hint="@string/login"
             android:inputType="text"
             android:maxLines="1"
-            android:singleLine="true"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
+            android:singleLine="true"
             android:textAppearance="@android:style/TextAppearance.Holo.Large" />
 
         <EditText
