@@ -37,7 +37,8 @@ public class InventoryIndex extends NavBar {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
+      super.onCreate(savedInstanceState);
+    //super.onRestoreInstanceState(savedInstanceState);
     super.addContentView(R.layout.activity_inventory_index);
 
 

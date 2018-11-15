@@ -28,12 +28,11 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="82dp"
         android:layout_marginTop="128dp"
-        android:background="@color/colorPrimaryDark"
+        android:backgroundTint="@color/colorAccent"
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
-        android:textColor="@color/colorPrimary"
-        android:textColorHint="@color/colorPrimary" />
+        android:textColor="@color/ic_launcher_background" />
 
     <EditText
         android:id="@+id/quantity"
@@ -43,12 +42,11 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="82dp"
         android:layout_marginTop="158dp"
-        android:background="@color/colorPrimaryDark"
+        android:backgroundTint="@color/colorAccent"
         android:ems="10"
         android:hint="Quantity"
         android:inputType="textPersonName"
-        android:textColor="@color/colorPrimary"
-        android:textColorHint="@color/colorPrimary" />
+        android:textColor="@color/ic_launcher_background" />
 
     <EditText
         android:id="@+id/price"
@@ -58,12 +56,11 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="82dp"
         android:layout_marginTop="188dp"
-        android:background="@color/colorPrimaryDark"
+        android:backgroundTint="@color/colorAccent"
         android:ems="10"
         android:hint="Price"
         android:inputType="textPersonName"
-        android:textColor="@color/colorPrimary"
-        android:textColorHint="@color/colorPrimary" />
+        android:textColor="@color/ic_launcher_background" />
 
     <EditText
         android:id="@+id/cpu"
@@ -73,12 +70,11 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="82dp"
         android:layout_marginTop="218dp"
-        android:background="@color/colorPrimaryDark"
+        android:backgroundTint="@color/colorAccent"
         android:ems="10"
-        android:hint="Cpu"
+        android:hint="CPU"
         android:inputType="textPersonName"
-        android:textColor="@color/colorPrimary"
-        android:textColorHint="@color/colorPrimary" />
+        android:textColor="@color/ic_launcher_background" />
 
     <EditText
         android:id="@+id/ram"
@@ -88,12 +84,11 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="82dp"
         android:layout_marginTop="248dp"
-        android:background="@color/colorPrimaryDark"
+        android:backgroundTint="@color/colorAccent"
         android:ems="10"
         android:hint="Ram"
         android:inputType="textPersonName"
-        android:textColor="@color/colorPrimary"
-        android:textColorHint="@color/colorPrimary" />
+        android:textColor="@color/ic_launcher_background" />
 
     <EditText
         android:id="@+id/hdd"
@@ -103,21 +98,10 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="82dp"
         android:layout_marginTop="278dp"
-        android:background="@color/colorPrimaryDark"
+        android:backgroundTint="@color/colorAccent"
         android:ems="10"
         android:hint="HDD"
         android:inputType="textPersonName"
-        android:textColor="@color/colorPrimary"
-        android:textColorHint="@color/colorPrimary" />
-
-    <TextView
-        android:id="@+id/flash"
-        android:layout_width="115dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="112dp"
-        android:layout_marginBottom="194dp"
         android:textColor="@color/ic_launcher_background" />
 
     <android.support.design.widget.FloatingActionButton
@@ -142,4 +126,16 @@
         android:clickable="true"
         app:backgroundTint="@color/ic_launcher_background"
         app:srcCompat="@drawable/ic_check_black_24dp" />
+
+    <ImageButton
+        android:id="@+id/money"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_alignStart="@+id/clearText"
+        android:layout_alignTop="@+id/price"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="15dp"
+        android:backgroundTint="@color/colorPrimary"
+        app:srcCompat="@drawable/ic_attach_money_black_24dp" />
+
 </RelativeLayout>

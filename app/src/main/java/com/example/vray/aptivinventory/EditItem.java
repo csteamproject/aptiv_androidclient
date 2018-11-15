@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,6 +55,8 @@ public class EditItem extends NavBar {
               JSONObject jobj = sc.getJSONString(hashes, 0);
               String mRequestBody = jobj.toString();
               patchItem(sc, mRequestBody, itemid);
+                Toast.makeText(EditItem.this, "Item updated successfully!",
+                        Toast.LENGTH_LONG).show();
             } catch (JSONException e) {
               e.printStackTrace();
             }
