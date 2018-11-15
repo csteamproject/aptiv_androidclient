@@ -1,5 +1,7 @@
 package com.example.vray.aptivinventory;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.os.Bundle;
@@ -125,46 +127,61 @@ public class AddInventory extends NavBar {
     FloatingActionButton add = findViewById(R.id.additem);
     add.setOnClickListener(new View.OnClickListener() {
       public void onClick(View v) {
+        new AlertDialog.Builder(AddInventory.this)
+                .setTitle("Confirm addition")
+                .setMessage("Are you sure you wan to add item?")
+                .setPositiveButton("ADD", new DialogInterface.OnClickListener() {
+                  @Override
+                  public void onClick(DialogInterface dialog, int which) {
+                    hashes[0] = "name";
+                    hashes[1] = name.getText().toString();
 
-        hashes[0] = "name";
-        hashes[1] = name.getText().toString();
+                    hashes[2] = "price";
+                    hashes[3] = price.getText().toString();
 
-        hashes[2] = "price";
-        hashes[3] = price.getText().toString();
+                    hashes[4] = "quantity";
+                    hashes[5] = quantity.getText().toString();
 
-        hashes[4] = "quantity";
-        hashes[5] = quantity.getText().toString();
+                    hashes[6] = "user_id";
+                    hashes[7] = sc.getUserID();
 
-        hashes[6] = "user_id";
-        hashes[7] = sc.getUserID();
+                    if (VALUES == 15) {
+                      hashes[8] = "computer_attributes";
+                      hashes[9] = "cpu";
+                      hashes[10] = cpu.getText().toString();
+                      hashes[11] = "ram";
+                      hashes[12] = ram.getText().toString();
+                      hashes[13] = "hdd";
+                      hashes[14] = hdd.getText().toString();
+                    }
 
-        if (VALUES == 15) {
-          hashes[8] = "computer_attributes";
-          hashes[9] = "cpu";
-          hashes[10] = cpu.getText().toString();
-          hashes[11] = "ram";
-          hashes[12] = ram.getText().toString();
-          hashes[13] = "hdd";
-          hashes[14] = hdd.getText().toString();
-        }
+                    if ((!hashes[1].equals("")) && (!hashes[5].equals(""))){
+                      String mRequestBody = "";
+                      try {
+                        mRequestBody = sc.getJSONString(hashes, 0).toString();
+                      } catch (JSONException e) {
+                        e.printStackTrace();
+                      }
+                      sendItem(sc, mRequestBody);
+                      Toast.makeText(AddInventory.this, "Item added successfully!",
+                              Toast.LENGTH_LONG).show();
+                      name.setText("");
+                      price.setText("");
+                      quantity.setText("");
+                      cpu.setText("");
+                      ram.setText("");
+                      hdd.setText("");
+                    }
+                  }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                  @Override
+                  public void onClick(DialogInterface dialog, int which) {
 
-        if ((!hashes[1].equals("")) && (!hashes[5].equals(""))){
-          String mRequestBody = "";
-        try {
-          mRequestBody = sc.getJSONString(hashes, 0).toString();
-        } catch (JSONException e) {
-          e.printStackTrace();
-        }
-        sendItem(sc, mRequestBody);
-          Toast.makeText(AddInventory.this, "Item added successfully!",
-                  Toast.LENGTH_LONG).show();
-          name.setText("");
-          price.setText("");
-          quantity.setText("");
-          cpu.setText("");
-          ram.setText("");
-          hdd.setText("");
-      }
+                  }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
         }
 
     });
