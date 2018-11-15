@@ -3,6 +3,8 @@ package com.example.vray.aptivinventory;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.app.AlertDialog;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,21 +57,36 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         holder.deleteItem.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-          ServerCalls sc = new ServerCalls(mContext);
-          sc.httpDelete(MainActivity.url + "items/" + list.get(position).getItemid(), new ServerCalls.VolleyResponseListener() {
-            @Override
-            public void onError(String message) {
-              Log.d("Get Error", message);
-            }
+          new AlertDialog.Builder(ItemAdapter.this.mContext)
+              .setTitle("Are you sure you want to delete this item?")
+              .setMessage("Once this is done it cannot easily be restored.")
+              .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                  ServerCalls sc = new ServerCalls(mContext);
+                  sc.httpDelete(MainActivity.url + "items/" + list.get(position).getItemid(), new ServerCalls.VolleyResponseListener() {
+                    @Override
+                    public void onError(String message) {
+                      Log.d("Get Error", message);
+                    }
 
-            @Override
-            public void onResponse(Object response) {
-              Toast.makeText(mContext, "Item deleted!",
-                      Toast.LENGTH_SHORT).show();
-              ItemAdapter.this.list.remove(list.get(position));
-              ItemAdapter.this.notifyDataSetChanged();
-            }
-          });
+                    @Override
+                    public void onResponse(Object response) {
+                      Toast.makeText(mContext, "Item deleted!",
+                          Toast.LENGTH_SHORT).show();
+                      ItemAdapter.this.list.remove(list.get(position));
+                      ItemAdapter.this.notifyDataSetChanged();
+                    }
+                  });
+                }
+              })
+              .setNegativeButton("Csncel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                  Log.d("MainActivity", "Aborting mission...");
+                }
+              })
+              .show();
         }
       });
 
