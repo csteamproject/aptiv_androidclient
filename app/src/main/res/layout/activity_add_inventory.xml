@@ -63,13 +63,69 @@
         android:textColor="@color/ic_launcher_background" />
 
     <EditText
-        android:id="@+id/cpu"
+        android:id="@+id/serialNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="82dp"
         android:layout_marginTop="218dp"
+        android:backgroundTint="@color/colorAccent"
+        android:ems="10"
+        android:hint="Serial Number"
+        android:inputType="textPersonName"
+        android:textColor="@color/ic_launcher_background" />
+
+    <EditText
+        android:id="@+id/brand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="82dp"
+        android:layout_marginTop="248dp"
+        android:backgroundTint="@color/colorAccent"
+        android:ems="10"
+        android:hint="Brand"
+        android:inputType="textPersonName"
+        android:textColor="@color/ic_launcher_background" />
+
+    <EditText
+        android:id="@+id/model"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="82dp"
+        android:layout_marginTop="278dp"
+        android:backgroundTint="@color/colorAccent"
+        android:ems="10"
+        android:hint="Model"
+        android:inputType="textPersonName"
+        android:textColor="@color/ic_launcher_background" />
+
+    <EditText
+        android:id="@+id/operable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="82dp"
+        android:layout_marginTop="310dp"
+        android:backgroundTint="@color/colorAccent"
+        android:ems="10"
+        android:hint="Operable"
+        android:inputType="textPersonName"
+        android:textColor="@color/ic_launcher_background" />
+
+    <EditText
+        android:id="@+id/cpu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="82dp"
+        android:layout_marginTop="342dp"
         android:backgroundTint="@color/colorAccent"
         android:ems="10"
         android:hint="CPU"
@@ -82,11 +138,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="82dp"
-        android:layout_marginTop="248dp"
+        android:layout_marginStart="81dp"
+        android:layout_marginTop="375dp"
         android:backgroundTint="@color/colorAccent"
         android:ems="10"
-        android:hint="Ram"
+        android:hint="RAM"
         android:inputType="textPersonName"
         android:textColor="@color/ic_launcher_background" />
 
@@ -97,7 +153,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="82dp"
-        android:layout_marginTop="278dp"
+        android:layout_marginTop="407dp"
         android:backgroundTint="@color/colorAccent"
         android:ems="10"
         android:hint="HDD"

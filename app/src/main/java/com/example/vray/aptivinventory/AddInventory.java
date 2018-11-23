@@ -17,7 +17,7 @@ import org.json.JSONException;
 
 public class AddInventory extends NavBar {
 
-  int VALUES = 15;
+  int VALUES = 23;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,15 @@ public class AddInventory extends NavBar {
     hdd.setVisibility(View.INVISIBLE);
     final ImageButton money = findViewById(R.id.money);
     money.setVisibility(View.INVISIBLE);
+    final EditText serialNum = findViewById(R.id.serialNumber);
+    serialNum.setVisibility(View.INVISIBLE);
+    final EditText brand = findViewById(R.id.brand);
+    brand.setVisibility(View.INVISIBLE);
+    final EditText model = findViewById(R.id.model);
+    model.setVisibility(View.INVISIBLE);
+    final EditText operable = findViewById(R.id.operable);
+    operable.setVisibility(View.INVISIBLE);
+
     Spinner staticSpinner = findViewById(R.id.static_spinner);
 
     ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter.createFromResource(this, R.array.item_array,
@@ -60,6 +69,10 @@ public class AddInventory extends NavBar {
             ram.setVisibility(View.INVISIBLE);
             hdd.setVisibility(View.INVISIBLE);
             money.setVisibility(View.INVISIBLE);
+            serialNum.setVisibility(View.INVISIBLE);
+            brand.setVisibility(View.INVISIBLE);
+            model.setVisibility(View.INVISIBLE);
+            operable.setVisibility(View.INVISIBLE);
 
             break;
 
@@ -71,6 +84,10 @@ public class AddInventory extends NavBar {
             ram.setVisibility(View.VISIBLE);
             hdd.setVisibility(View.VISIBLE);
             money.setVisibility(View.VISIBLE);
+            serialNum.setVisibility(View.VISIBLE);
+            brand.setVisibility(View.VISIBLE);
+            model.setVisibility(View.VISIBLE);
+            operable.setVisibility(View.VISIBLE);
 
             break;
 
@@ -82,8 +99,12 @@ public class AddInventory extends NavBar {
             ram.setVisibility(View.INVISIBLE);
             hdd.setVisibility(View.INVISIBLE);
             money.setVisibility(View.VISIBLE);
+            serialNum.setVisibility(View.VISIBLE);
+            brand.setVisibility(View.VISIBLE);
+            model.setVisibility(View.VISIBLE);
+            operable.setVisibility(View.VISIBLE);
 
-            VALUES = 8;
+            VALUES = 12;
             break;
 
           case 3:
@@ -94,8 +115,12 @@ public class AddInventory extends NavBar {
             ram.setVisibility(View.INVISIBLE);
             hdd.setVisibility(View.INVISIBLE);
             money.setVisibility(View.VISIBLE);
+            serialNum.setVisibility(View.VISIBLE);
+            brand.setVisibility(View.VISIBLE);
+            model.setVisibility(View.VISIBLE);
+            operable.setVisibility(View.VISIBLE);
 
-            VALUES = 8;
+            VALUES = 12;
             break;
 
           case 4:
@@ -106,8 +131,12 @@ public class AddInventory extends NavBar {
             ram.setVisibility(View.INVISIBLE);
             hdd.setVisibility(View.INVISIBLE);
             money.setVisibility(View.VISIBLE);
+            serialNum.setVisibility(View.VISIBLE);
+            brand.setVisibility(View.VISIBLE);
+            model.setVisibility(View.VISIBLE);
+            operable.setVisibility(View.VISIBLE);
 
-            VALUES = 8;
+            VALUES = 12;
             break;
         }
       }
@@ -145,14 +174,29 @@ public class AddInventory extends NavBar {
                     hashes[6] = "user_id";
                     hashes[7] = sc.getUserID();
 
-                    if (VALUES == 15) {
-                      hashes[8] = "computer_attributes";
-                      hashes[9] = "cpu";
-                      hashes[10] = cpu.getText().toString();
-                      hashes[11] = "ram";
-                      hashes[12] = ram.getText().toString();
-                      hashes[13] = "hdd";
-                      hashes[14] = hdd.getText().toString();
+                    hashes[8] = "location_id";
+                    hashes[9] = sc.getLocationID();
+
+                    hashes[10] = "serial_number";
+                    hashes[11] = serialNum.getText().toString();
+
+                    hashes[12] = "brand";
+                    hashes[13] = brand.getText().toString();
+
+                    hashes[14] = "model";
+                    hashes[15] = model.getText().toString();
+
+                    hashes[16] = "operable";
+                    hashes[17] = operable.getText().toString();
+
+                    if (VALUES == 23) {
+                      hashes[18] = "computer_attributes";
+                      hashes[19] = "cpu";
+                      hashes[20] = cpu.getText().toString();
+                      hashes[21] = "ram";
+                      hashes[22] = ram.getText().toString();
+                      hashes[23] = "hdd";
+                      hashes[24] = hdd.getText().toString();
                     }
 
                     if ((!hashes[1].equals("")) && (!hashes[5].equals(""))){
@@ -171,6 +215,10 @@ public class AddInventory extends NavBar {
                       cpu.setText("");
                       ram.setText("");
                       hdd.setText("");
+                      serialNum.setText("");
+                      brand.setText("");
+                      model.setText("");
+                      operable.setText("");
                     }
                   }
                 })
@@ -197,6 +245,10 @@ public class AddInventory extends NavBar {
         cpu.setText("");
         ram.setText("");
         hdd.setText("");
+        serialNum.setText("");
+        brand.setText("");
+        model.setText("");
+        operable.setText("");
       }
     });
 
@@ -213,6 +265,7 @@ public class AddInventory extends NavBar {
       public void onResponse(Object response) {
         Intent intent = new Intent(AddInventory.this, AddInventory.class);
         viewInventory(intent);
+        finish();
       }
     });
   }

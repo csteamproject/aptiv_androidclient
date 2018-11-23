@@ -209,6 +209,11 @@ class ServerCalls {
     return sharedPrefs.getString("userID","");
   }
 
+  public String getLocationID() {
+    SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+    return sharedPrefs.getString("locationID", "");
+  }
+
   public JSONObject getJSONString(String[] hashes, int offset) throws JSONException {
     final JSONObject JSONHash = new JSONObject();
     String collection = "";

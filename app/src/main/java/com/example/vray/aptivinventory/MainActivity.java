@@ -30,6 +30,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
   public void route(Intent intent) {
     startActivity(intent);
+    finish();
   }
 
   public static String userName;
@@ -86,12 +87,14 @@ public class MainActivity extends AppCompatActivity {
         String lastName = response.getString("last");
         String role = response.getString("role");
         String userID = response.getString("id");
+        String locationID = response.getString("location");
 
         edit.putString("token", saveToken);
         edit.putString("firstName", firstName);
         edit.putString("lastName", lastName);
         edit.putString("role", role);
         edit.putString("userID", userID);
+        edit.putString("locationID", locationID);
         edit.apply();
         if (success.equals("true")) {
           Intent intent = new Intent(MainActivity.this, NavBar.class);

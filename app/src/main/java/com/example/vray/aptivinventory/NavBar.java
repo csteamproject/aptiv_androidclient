@@ -1,4 +1,10 @@
-
+/*
+Created by: Victor Lozoya
+This program creates the navigation menu that will be shared among activities
+it includes a menu with 3 options home, inventory, and consult/update item
+it includes a method to add add an activity to the navigation menu
+which can be called by any activity that needs to display the navigation menu
+*/
 package com.example.vray.aptivinventory;
 
 import android.content.Context;
@@ -17,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import com.example.vray.aptivinventory.MainActivity;
 
@@ -24,10 +31,10 @@ import com.example.vray.aptivinventory.MainActivity;
 public class NavBar extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
   private DrawerLayout dl;
   private ActionBarDrawerToggle adt;
-  private NavigationView nv;
 
   public void viewInventory(Intent intent) {
     startActivity(intent);
+    finish();
   }
 
   @Override
@@ -58,7 +65,7 @@ public class NavBar extends AppCompatActivity implements NavigationView.OnNaviga
 
     final String username = MainActivity.userName;
     nav_view.setNavigationItemSelectedListener(this);
-    TextView profile = (TextView) nav_view.getHeaderView(0).findViewById(R.id.user);
+    TextView profile = nav_view.getHeaderView(0).findViewById(R.id.user);
     profile.setText(username);
 
 
@@ -67,6 +74,7 @@ public class NavBar extends AppCompatActivity implements NavigationView.OnNaviga
       @Override
       public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
+
 
         if (id == R.id.viewInventory) {
           Intent intent = new Intent(NavBar.this, InventoryIndex.class);
@@ -78,6 +86,7 @@ public class NavBar extends AppCompatActivity implements NavigationView.OnNaviga
           Intent intent = new Intent(NavBar.this, NavBar.class);
           viewInventory(intent);
         }
+
         return true;
       }
     });
