@@ -17,7 +17,7 @@ import org.json.JSONException;
 
 public class AddInventory extends NavBar {
 
-  int VALUES = 23;
+  int VALUES = 25;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -189,7 +189,7 @@ public class AddInventory extends NavBar {
                     hashes[16] = "operable";
                     hashes[17] = operable.getText().toString();
 
-                    if (VALUES == 23) {
+                    if (VALUES == 24) {
                       hashes[18] = "computer_attributes";
                       hashes[19] = "cpu";
                       hashes[20] = cpu.getText().toString();
