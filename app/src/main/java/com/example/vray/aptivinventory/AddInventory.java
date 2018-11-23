@@ -189,7 +189,7 @@ public class AddInventory extends NavBar {
                     hashes[16] = "operable";
                     hashes[17] = operable.getText().toString();
 
-                    if (VALUES == 24) {
+                    if (VALUES == 25) {
                       hashes[18] = "computer_attributes";
                       hashes[19] = "cpu";
                       hashes[20] = cpu.getText().toString();
