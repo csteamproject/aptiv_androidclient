@@ -12,15 +12,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.json.JSONException;
-
 import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     private Context mContext;
-    public List<Item> list;
+    public static List<Item> list;
     public void getEditItem(Intent intent) {
         mContext.startActivity(intent);
     }
@@ -88,6 +85,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
               })
               .show();
         }
+
+
       });
 
     }
@@ -96,6 +95,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     public int getItemCount() {
         return list.size();
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView textName, textPrice, textQuantity;
@@ -111,5 +111,16 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             textPrice = itemView.findViewById(R.id.main_price);
             textQuantity = itemView.findViewById(R.id.main_quantity);
         }
+
+
     }
+
+
+
+
+
+
+
+
+
 }

@@ -3,14 +3,17 @@ package com.example.vray.aptivinventory;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.view.MenuItemCompat;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,7 +22,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InventoryIndex extends NavBar {
+import static com.example.vray.aptivinventory.ItemAdapter.list;
+
+public class InventoryIndex extends NavBar implements SearchView.OnQueryTextListener {
 
   private RecyclerView mList;
 
@@ -67,6 +72,18 @@ public class InventoryIndex extends NavBar {
 
   }
 
+
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu){
+    getMenuInflater().inflate(R.menu.searchicon, menu);
+    MenuItem menuItem = menu.findItem(R.id.action_serch);
+    SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+    searchView.setOnQueryTextListener(this);
+    return true;
+
+  }
+
   private void getInventory(final ServerCalls sc) {
     final ProgressDialog progressDialog = new ProgressDialog(this);
     progressDialog.setMessage("Loading...");
@@ -91,5 +108,30 @@ public class InventoryIndex extends NavBar {
         progressDialog.dismiss();
       }
     });
+  }
+
+  @Override
+  public boolean onQueryTextSubmit(String query) {
+    return false;
+  }
+
+  @Override
+  public boolean onQueryTextChange(String newText) {
+
+    newText = newText.toLowerCase();
+    ArrayList<Item> newList = new ArrayList<>();
+    for(Item item : itemList){
+      String name = item.getName().toLowerCase();
+      if(name.contains(newText))
+        newList.add(item);
+    }
+    setFilter(newList);
+    return true;
+  }
+
+  public void setFilter(ArrayList<Item> newList){
+    list = new ArrayList<>();
+    list.addAll(newList);
+    adapter.notifyDataSetChanged();
   }
 }
