@@ -1,18 +1,29 @@
 package com.example.vray.aptivinventory;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 
 import org.json.JSONArray;
@@ -27,6 +38,7 @@ import static com.example.vray.aptivinventory.ItemAdapter.list;
 public class InventoryIndex extends NavBar implements SearchView.OnQueryTextListener {
 
   private RecyclerView mList;
+  private Context mContext;
 
   private LinearLayoutManager linearLayoutManager;
   private DividerItemDecoration dividerItemDecoration;
@@ -69,6 +81,9 @@ public class InventoryIndex extends NavBar implements SearchView.OnQueryTextList
         getAddItem(intent);
       }
     });
+
+    ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+    itemTouchHelper.attachToRecyclerView(mList);
 
   }
 
@@ -134,4 +149,59 @@ public class InventoryIndex extends NavBar implements SearchView.OnQueryTextList
     list.addAll(newList);
     adapter.notifyDataSetChanged();
   }
+
+
+    ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT){
+
+
+      @Override
+      public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
+        Toast.makeText(InventoryIndex.this, "on move", Toast.LENGTH_SHORT).show();
+        return false;
+      }
+
+      @Override
+      public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+
+        final int position = viewHolder.getAdapterPosition();
+            new android.support.v7.app.AlertDialog.Builder(InventoryIndex.this)
+                    .setTitle("Are you sure you want to delete this item?")
+                    .setMessage("Once this is done it cannot easily be restored.")
+                    .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                      @Override
+                      public void onClick(DialogInterface dialog, int which) {
+                        ServerCalls sc = new ServerCalls(InventoryIndex.this);
+                        sc.httpDelete(MainActivity.url + "items/" + list.get(position).getItemid(), new ServerCalls.VolleyResponseListener() {
+                          @Override
+                          public void onError(String message) {
+                            Log.d("Get Error", message);
+                          }
+
+                          @Override
+                          public void onResponse(Object response) {
+                            Item item = list.get(position);
+                            list.remove(position);
+                            itemList.remove(item);
+                            adapter.notifyDataSetChanged();
+                            Toast.makeText(InventoryIndex.this, "Item deleted!",
+                                    Toast.LENGTH_SHORT).show();
+                          }
+                        });
+                      }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                      @Override
+                      public void onClick(DialogInterface dialog, int which) {
+                        adapter.notifyItemChanged(position);
+                        Log.d("MainActivity", "Aborting mission...");
+                      }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+
+      }
+    };
+
+
+
 }

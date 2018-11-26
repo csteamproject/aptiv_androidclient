@@ -51,43 +51,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
                 getEditItem(intent);
             }
         });
-        holder.deleteItem.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-          new AlertDialog.Builder(ItemAdapter.this.mContext)
-              .setTitle("Are you sure you want to delete this item?")
-              .setMessage("Once this is done it cannot easily be restored.")
-              .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                  ServerCalls sc = new ServerCalls(mContext);
-                  sc.httpDelete(MainActivity.url + "items/" + list.get(position).getItemid(), new ServerCalls.VolleyResponseListener() {
-                    @Override
-                    public void onError(String message) {
-                      Log.d("Get Error", message);
-                    }
 
-                    @Override
-                    public void onResponse(Object response) {
-                      Toast.makeText(mContext, "Item deleted!",
-                          Toast.LENGTH_SHORT).show();
-                      ItemAdapter.this.list.remove(list.get(position));
-                      ItemAdapter.this.notifyDataSetChanged();
-                    }
-                  });
-                }
-              })
-              .setNegativeButton("Csncel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                  Log.d("MainActivity", "Aborting mission...");
-                }
-              })
-              .show();
-        }
-
-
-      });
 
     }
 
@@ -105,7 +69,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         public ViewHolder(View itemView) {
             super(itemView);
             editItem = itemView.findViewById(R.id.editItem);
-            deleteItem = itemView.findViewById(R.id.deleteItem);
 
             textName = itemView.findViewById(R.id.main_title);
             textPrice = itemView.findViewById(R.id.main_price);
@@ -114,13 +77,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
 
     }
-
-
-
-
-
-
-
 
 
 }
