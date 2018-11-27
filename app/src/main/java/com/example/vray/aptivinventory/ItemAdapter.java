@@ -3,15 +3,11 @@ package com.example.vray.aptivinventory;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.app.AlertDialog;
-import android.content.DialogInterface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
@@ -38,7 +34,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         Item item = list.get(position);
 
         holder.textName.setText(item.getName());
-
         holder.textPrice.setText(String.valueOf(item.getPrice()));
         holder.textQuantity.setText(String.valueOf(item.getQuantity()));
         holder.editItem.setOnClickListener(new View.OnClickListener() {
@@ -65,7 +60,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView textName, textPrice, textQuantity;
         public Button editItem;
-        public Button deleteItem;
 
         public ViewHolder(View itemView) {
             super(itemView);

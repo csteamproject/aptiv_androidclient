@@ -1,14 +1,10 @@
 package com.example.vray.aptivinventory;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
@@ -16,7 +12,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.os.Bundle;
-import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,24 +22,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-import android.widget.Toolbar;
-
-
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.app.PendingIntent.getActivity;
 import static com.example.vray.aptivinventory.ItemAdapter.list;
 
 public class InventoryIndex extends NavBar implements SearchView.OnQueryTextListener {
 
   private RecyclerView mList;
-  private Context mContext;
 
   private LinearLayoutManager linearLayoutManager;
   private DividerItemDecoration dividerItemDecoration;
@@ -64,7 +51,6 @@ public class InventoryIndex extends NavBar implements SearchView.OnQueryTextList
       super.onCreate(savedInstanceState);
     //super.onRestoreInstanceState(savedInstanceState);
     super.addContentView(R.layout.activity_inventory_index);
-    mContext = InventoryIndex.this;
 
 
     mList = findViewById(R.id.main_list);
@@ -163,8 +149,6 @@ public class InventoryIndex extends NavBar implements SearchView.OnQueryTextList
 
     ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT){
 
-
-     //Drawable icon = ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_delete_forever_black_24dp)
 
       private ColorDrawable background = new ColorDrawable(Color.RED);
       @Override
