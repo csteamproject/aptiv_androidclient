@@ -1,10 +1,13 @@
 package com.example.vray.aptivinventory;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -13,6 +16,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.os.Bundle;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,6 +30,7 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,6 +38,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.app.PendingIntent.getActivity;
 import static com.example.vray.aptivinventory.ItemAdapter.list;
 
 public class InventoryIndex extends NavBar implements SearchView.OnQueryTextListener {
@@ -44,6 +50,7 @@ public class InventoryIndex extends NavBar implements SearchView.OnQueryTextList
   private DividerItemDecoration dividerItemDecoration;
   private List<Item> itemList;
   private RecyclerView.Adapter adapter;
+
   ServerCalls sc = new ServerCalls(this);
   JSONArray responseArray = new JSONArray();
 
@@ -57,6 +64,7 @@ public class InventoryIndex extends NavBar implements SearchView.OnQueryTextList
       super.onCreate(savedInstanceState);
     //super.onRestoreInstanceState(savedInstanceState);
     super.addContentView(R.layout.activity_inventory_index);
+    mContext = InventoryIndex.this;
 
 
     mList = findViewById(R.id.main_list);
@@ -81,6 +89,7 @@ public class InventoryIndex extends NavBar implements SearchView.OnQueryTextList
         getAddItem(intent);
       }
     });
+
 
     ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
     itemTouchHelper.attachToRecyclerView(mList);
@@ -115,6 +124,7 @@ public class InventoryIndex extends NavBar implements SearchView.OnQueryTextList
         responseArray = sc.httpParseJSON(response.toString());
         for (int i = 0; i < responseArray.length(); i++) {
           JSONObject jsonObject = responseArray.getJSONObject(i);
+          if(jsonObject.isNull("price")){ jsonObject.put("price", 0); }
           Item item = new Item(jsonObject.getInt("id"), jsonObject.getString("name"), jsonObject.getDouble("price"),
                   jsonObject.getInt("quantity"), jsonObject.getInt("user_id"));
           itemList.add(item);
@@ -154,6 +164,9 @@ public class InventoryIndex extends NavBar implements SearchView.OnQueryTextList
     ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT){
 
 
+     //Drawable icon = ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_delete_forever_black_24dp)
+
+      private ColorDrawable background = new ColorDrawable(Color.RED);
       @Override
       public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
         Toast.makeText(InventoryIndex.this, "on move", Toast.LENGTH_SHORT).show();
@@ -199,6 +212,36 @@ public class InventoryIndex extends NavBar implements SearchView.OnQueryTextList
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
 
+      }
+
+      @Override
+      public void onChildDraw(Canvas c, RecyclerView rc, RecyclerView.ViewHolder vH, float dx, float dy, int actionState, boolean isCurrentlyActive ){
+
+        Drawable icon = ContextCompat.getDrawable(InventoryIndex.this, R.drawable.ic_delete_forever_black_24dp);
+
+        super.onChildDraw(c, rc, vH, dx, dy, actionState, isCurrentlyActive);
+
+        View itemView = vH.itemView;
+        int backgroundCornerOffset = 20;
+
+        int iconMargin = (itemView.getHeight() - icon.getIntrinsicHeight()) / 2;
+        int iconTop = itemView.getTop() + (itemView.getHeight() - icon.getIntrinsicHeight()) / 2;
+        int iconBottom = iconTop + icon.getIntrinsicHeight();
+
+        if(dx < 0){
+          int iconLeft = itemView.getRight() - iconMargin - icon.getIntrinsicWidth();
+          int iconRight = itemView.getRight() - iconMargin;
+          icon.setBounds(iconLeft, iconTop, iconRight, iconBottom);
+
+          background.setBounds(itemView.getRight() + ((int)dx) - backgroundCornerOffset, itemView.getTop(), itemView.getRight(), itemView.getBottom());
+        }
+
+        else{
+          background.setBounds(0, 0, 0, 0);
+        }
+
+        background.draw(c);
+        icon.draw(c);
       }
     };
 

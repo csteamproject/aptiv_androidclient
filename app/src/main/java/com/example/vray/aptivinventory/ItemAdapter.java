@@ -38,6 +38,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         Item item = list.get(position);
 
         holder.textName.setText(item.getName());
+
         holder.textPrice.setText(String.valueOf(item.getPrice()));
         holder.textQuantity.setText(String.valueOf(item.getQuantity()));
         holder.editItem.setOnClickListener(new View.OnClickListener() {
