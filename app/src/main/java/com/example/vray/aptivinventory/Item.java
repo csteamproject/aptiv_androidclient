@@ -6,6 +6,10 @@ public class Item {
   private int quantity;
   private int owner_id;
   private int itemid;
+  private String serialNum;
+  private String brand;
+  private String model;
+  private String operable;
 
   private String utag;
   private int ram;
@@ -19,12 +23,16 @@ public class Item {
     this.owner_id = owner_id;
   }
 
-  public Item(int itemid, String name, double price, int quantity, int owner_id) {
+  public Item(int itemid, String name, double price, int quantity, int owner_id, String serialNum, String brand, String model, String operable) {
     this.name = name;
     this.price = price;
     this.quantity = quantity;
     this.itemid = itemid;
     this.owner_id = owner_id;
+    this.serialNum = serialNum;
+    this.brand = brand;
+    this.model = model;
+    this.operable = operable;
   }
 
   public Item(int itemid, String name, double price, int quantity, int owner_id, int ram, String utag, int hdd, double cpu) {
@@ -45,6 +53,30 @@ public class Item {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public String getSerialNum() {
+    return serialNum;
+  }
+
+  public void setSerialNum(String serialNum) {
+    this.serialNum = serialNum;
+  }
+
+  public String getBrand() {
+    return brand;
+  }
+
+  public void setBrand(String brand) {
+    this.brand = brand;
+  }
+
+  public String getModel() {
+    return model;
+  }
+
+  public void setModel(String model) {
+    this.model= model;
   }
 
   public double getPrice() {
@@ -76,5 +108,9 @@ public class Item {
   public void setItemid(int itemid) {
     this.itemid = itemid;
   }
+
+  public String getOperable(){ return operable; }
+
+  public void setOperable(String operable){ this.operable = operable; }
 
 }

@@ -35,16 +35,22 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         Item item = list.get(position);
 
         holder.textName.setText(item.getName());
-        holder.textPrice.setText(String.valueOf(item.getPrice()));
-        holder.textQuantity.setText(String.valueOf(item.getQuantity()));
+        holder.brand.setText(item.getBrand());
+        holder.model.setText(item.getModel());
+        holder.serialNumber.setText(item.getSerialNum());
+        holder.operable.setText(item.getOperable());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, EditItem.class);
-                intent.putExtra("itemid", list.get(position).getItemid());
+                intent.putExtra("brand", list.get(position).getBrand());
                 intent.putExtra("name", list.get(position).getName());
-                intent.putExtra("quantity", list.get(position).getQuantity());
+                intent.putExtra("model", list.get(position).getModel());
+                intent.putExtra("serialNumber", list.get(position).getSerialNum());
                 intent.putExtra("price", list.get(position).getPrice());
+                intent.putExtra("quantity", list.get(position).getQuantity());
+                intent.putExtra("operable", list.get(position).getOperable());
+                intent.putExtra("itemid", list.get(position).getItemid());
                 getEditItem(intent);
             }
         });
@@ -59,16 +65,18 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView textName, textPrice, textQuantity;
-        public Button editItem;
+        public TextView textName, serialNumber, brand, model, operable;
+
 
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             textName = itemView.findViewById(R.id.main_title);
-            textPrice = itemView.findViewById(R.id.main_price);
-            textQuantity = itemView.findViewById(R.id.main_quantity);
+            serialNumber = itemView.findViewById(R.id.serialNumber);
+            brand = itemView.findViewById(R.id.brand);
+            model = itemView.findViewById(R.id.model);
+            operable = itemView.findViewById(R.id.Operable);
         }
 
 

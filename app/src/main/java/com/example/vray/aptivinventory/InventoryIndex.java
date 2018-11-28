@@ -111,8 +111,18 @@ public class InventoryIndex extends NavBar implements SearchView.OnQueryTextList
         for (int i = 0; i < responseArray.length(); i++) {
           JSONObject jsonObject = responseArray.getJSONObject(i);
           if(jsonObject.isNull("price")){ jsonObject.put("price", 0); }
+          if(jsonObject.isNull("serial_number")){ jsonObject.put("serial_number", ""); }
+          if(jsonObject.isNull("brand")){ jsonObject.put("brand", ""); }
+          if(jsonObject.isNull("model")){ jsonObject.put("model", ""); }
+          if (jsonObject.isNull("operable")) {
+            jsonObject.put("operable", "Operable");
+          }
+
+
+
           Item item = new Item(jsonObject.getInt("id"), jsonObject.getString("name"), jsonObject.getDouble("price"),
-                  jsonObject.getInt("quantity"), jsonObject.getInt("user_id"));
+                  jsonObject.getInt("quantity"), jsonObject.getInt("user_id"), jsonObject.getString("serial_number"),
+                  jsonObject.getString("brand"), jsonObject.getString("model"), jsonObject.getString("operable"));
           itemList.add(item);
         }
         adapter.notifyDataSetChanged();

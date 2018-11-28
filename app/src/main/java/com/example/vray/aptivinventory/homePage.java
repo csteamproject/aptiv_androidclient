@@ -53,7 +53,7 @@ public class homePage extends NavBar implements SearchView.OnQueryTextListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //super.onRestoreInstanceState(savedInstanceState);
-        super.addContentView(R.layout.activity_inventory_index);
+        super.addContentView(R.layout.activity_ticket_index);
 
 
         mList = findViewById(R.id.main_list);
@@ -115,7 +115,7 @@ public class homePage extends NavBar implements SearchView.OnQueryTextListener {
                     JSONObject jsonObject = responseArray.getJSONObject(i);
                     //if(jsonObject.isNull("price")){ jsonObject.put("price", 0); }
                     ticket ticket = new ticket(jsonObject.getInt("id"), jsonObject.getString("title"), jsonObject.getString("status"),
-                            jsonObject.getInt("priority"), jsonObject.getString("description"));
+                            jsonObject.getInt("priority"), jsonObject.getString("description"), jsonObject.getInt("item_id"));
                     itemList.add(ticket);
                 }
                 adapter.notifyDataSetChanged();

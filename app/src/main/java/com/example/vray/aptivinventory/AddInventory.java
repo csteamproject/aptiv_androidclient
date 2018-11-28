@@ -26,9 +26,9 @@ public class AddInventory extends NavBar {
 
     final EditText name = findViewById(R.id.name);
     name.setVisibility(View.INVISIBLE);
-    final EditText price = findViewById(R.id.price);
+    final EditText price = findViewById(R.id.itemid);
     price.setVisibility(View.INVISIBLE);
-    final EditText quantity = findViewById(R.id.quantity);
+    final EditText quantity = findViewById(R.id.ticketid);
     quantity.setVisibility(View.INVISIBLE);
     final EditText cpu = findViewById(R.id.cpu);
     cpu.setVisibility(View.INVISIBLE);

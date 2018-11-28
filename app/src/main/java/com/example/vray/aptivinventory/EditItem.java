@@ -29,14 +29,26 @@ public class EditItem extends NavBar {
         Integer itemQuantity = in.getExtras().getInt("quantity");
 
         Double itemPrice = in.getExtras().getDouble("price");
+        String serialNum = in.getExtras().getString("serialNumber");
+        String brand = in.getExtras().getString("brand");
+        String model = in.getExtras().getString("model");
+        String operable = in.getExtras().getString("operable");
 
         final EditText name = findViewById(R.id.name);
-        final EditText price = findViewById(R.id.price);
-        final EditText quantity = findViewById(R.id.quantity);
+        final EditText price = findViewById(R.id.itemid);
+        final EditText quantity = findViewById(R.id.ticketid);
+        final EditText serial = findViewById(R.id.description);
+        final EditText brands = findViewById(R.id.brand);
+        final EditText models = findViewById(R.id.model);
+        final EditText ops = findViewById(R.id.operable);
 
         name.setText(itemName);
         price.setText(itemPrice.toString());
         quantity.setText(itemQuantity.toString());
+        serial.setText(serialNum);
+        brands.setText(brand);
+        models.setText(model);
+        ops.setText(operable);
 
         final String[] hashes = new String[VALUES];
 
@@ -51,6 +63,16 @@ public class EditItem extends NavBar {
               hashes[5] = quantity.getText().toString();
               hashes[6] = "owner_id";
               hashes[7] = sc.getUserID();
+              hashes[8] = "serial_number";
+              hashes[9] = serial.getText().toString();
+              hashes[10] = "brand";
+              hashes[11] = brands.getText().toString();
+              hashes[12] = "model";
+              hashes[13] = models.getText().toString();
+              hashes[14] = "operable";
+              hashes[15] = ops.getText().toString();
+              hashes[16] = "id";
+              hashes[17] = itemid.toString();
 
               JSONObject jobj = sc.getJSONString(hashes, 0);
               String mRequestBody = jobj.toString();

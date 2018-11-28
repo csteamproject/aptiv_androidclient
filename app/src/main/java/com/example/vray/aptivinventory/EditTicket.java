@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -18,26 +19,34 @@ public class EditTicket extends NavBar {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.addContentView(R.layout.activity_edit_item);
+        super.addContentView(R.layout.activity_edit_ticket);
         Intent in = getIntent();
         FloatingActionButton additem = findViewById(R.id.additem);
         final ServerCalls sc = new ServerCalls(this);
 
         String itemName = in.getStringExtra("title");
 
-        final Integer itemid = in.getExtras().getInt("id");
+        final Integer itemid = in.getExtras().getInt("itemid");
         final Integer priority = in.getExtras().getInt("priority");
 
         final String description = in.getStringExtra("description");
         final String status = in.getStringExtra("status");
+        final Integer ticketid = in.getExtras().getInt("id");
 
         final EditText name = findViewById(R.id.name);
-        final EditText price = findViewById(R.id.price);
-        final EditText quantity = findViewById(R.id.quantity);
+        final EditText itemids = findViewById(R.id.itemid);
+        final EditText ticketids = findViewById(R.id.ticketid);
+        final TextView descriptions = findViewById(R.id.description);
+        final EditText statuses = findViewById(R.id.status);
+        final EditText priorities = findViewById(R.id.priority);
 
         name.setText(itemName);
-        price.setText(description);
-        quantity.setText(itemid.toString());
+        itemids.setText(itemid.toString());
+        ticketids.setText(ticketid.toString());
+        descriptions.setText(description);
+        statuses.setText(status);
+        priorities.setText(priority.toString());
+
 
         final String[] hashes = new String[VALUES];
 
@@ -45,19 +54,21 @@ public class EditTicket extends NavBar {
             public void onClick(View v) {
                 try {
                     hashes[0] = "id";
-                    hashes[1] = quantity.getText().toString();
+                    hashes[1] = ticketids.getText().toString();
                     hashes[2] = "title";
                     hashes[3] = name.getText().toString();
                     hashes[4] = "status";
-                    hashes[5] = status;
+                    hashes[5] = statuses.getText().toString();
                     hashes[6] = "priority";
-                    hashes[7] = priority.toString();
+                    hashes[7] = priorities.getText().toString();
                     hashes[8] = "description";
-                    hashes[9] = price.getText().toString();
+                    hashes[9] = descriptions.getText().toString();
+                    hashes[10] = "item_id";
+                    hashes[11] = itemids.getText().toString();
 
                     JSONObject jobj = sc.getJSONString(hashes, 0);
                     String mRequestBody = jobj.toString();
-                    patchItem(sc, mRequestBody, itemid);
+                    patchItem(sc, mRequestBody, ticketid);
                     Toast.makeText(EditTicket.this, "Ticket updated successfully!",
                             Toast.LENGTH_LONG).show();
                 } catch (JSONException e) {

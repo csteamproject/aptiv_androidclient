@@ -61,7 +61,7 @@
         android:layout_marginStart="66dp"
         android:layout_marginEnd="79dp"
         android:layout_marginBottom="48dp"
-        android:text="Price:"
+        android:text="ItemID:"
         app:layout_constraintBottom_toBottomOf="@+id/itemid"
         app:layout_constraintEnd_toStartOf="@+id/ticketid"
         app:layout_constraintStart_toStartOf="parent" />
@@ -71,7 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="48dp"
-        android:text="Quantity"
+        android:text="TicketID:"
         app:layout_constraintBottom_toBottomOf="@+id/ticketid"
         app:layout_constraintStart_toStartOf="@+id/ticketid" />
 
@@ -89,23 +89,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_check_black_24dp" />
 
-    <EditText
+    <TextView
         android:id="@+id/description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="329dp"
+        android:layout_height="70dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Serial Number"
+        android:text="Description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.344"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/itemid" />
 
     <EditText
-        android:id="@+id/brand"
+        android:id="@+id/status"
         android:layout_width="111dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
@@ -113,40 +113,23 @@
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Brand"
+        android:text="Status"
         app:layout_constraintEnd_toStartOf="@+id/model"
         app:layout_constraintHorizontal_bias="0.703"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/description" />
 
     <EditText
-        android:id="@+id/model"
+        android:id="@+id/priority"
         android:layout_width="118dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="84dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Model"
+        android:text="Priority"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/description" />
 
-    <EditText
-        android:id="@+id/operable"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Operable"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.379"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/model"
-        app:layout_constraintVertical_bias="0.0" />
 </android.support.constraint.ConstraintLayout>
 

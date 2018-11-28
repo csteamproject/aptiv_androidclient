@@ -6,15 +6,17 @@ public class ticket {
     private String status;
     private int priority;
     private String description;
+    private int itemid;
 
 
 
-    public ticket(int id, String title, String status, int priority, String description) {
+    public ticket(int id, String title, String status, int priority, String description, int itemid) {
         this.id = id;
         this.title = title;
         this.status = status;
         this.priority = priority;
         this.description = description;
+        this.itemid = itemid;
 
     }
 
@@ -56,5 +58,9 @@ public class ticket {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public int getItemid() { return itemid; }
+
+    public void setItemid(int itemid){ this.itemid = itemid; }
 
 }

@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -26,7 +25,7 @@ public class ticketAdapter extends RecyclerView.Adapter<ticketAdapter.ViewHolder
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(mContext2).inflate(R.layout.single_item, parent, false);
+        View v = LayoutInflater.from(mContext2).inflate(R.layout.single_ticket, parent, false);
         return new ticketAdapter.ViewHolder(v);
     }
 
@@ -34,9 +33,9 @@ public class ticketAdapter extends RecyclerView.Adapter<ticketAdapter.ViewHolder
     public void onBindViewHolder(final ticketAdapter.ViewHolder holder, final int position) {
         ticket ticket = list2.get(position);
 
-        holder.textName.setText(ticket.getTitle());
-        holder.textPrice.setText(String.valueOf(ticket.getId()));
-        holder.textQuantity.setText(String.valueOf(ticket.getStatus()));
+        holder.textTitle.setText(ticket.getTitle());
+        holder.textStatus.setText(ticket.getStatus());
+        holder.textName.setText(ticket.getDescription());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,6 +45,7 @@ public class ticketAdapter extends RecyclerView.Adapter<ticketAdapter.ViewHolder
                 intent.putExtra("status", list2.get(position).getStatus());
                 intent.putExtra("title", list2.get(position).getTitle());
                 intent.putExtra("id", list2.get(position).getId());
+                intent.putExtra("itemid", list2.get(position).getItemid());
                 getEditItem(intent);
             }
         });
@@ -60,14 +60,13 @@ public class ticketAdapter extends RecyclerView.Adapter<ticketAdapter.ViewHolder
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView textName, textPrice, textQuantity;
-        public Button editItem;
+        public TextView textTitle, textStatus, textName;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            textName = itemView.findViewById(R.id.main_title);
-            textPrice = itemView.findViewById(R.id.main_price);
-            textQuantity = itemView.findViewById(R.id.main_quantity);
+            textTitle = itemView.findViewById(R.id.title);
+            textStatus = itemView.findViewById(R.id.status);
+            textName = itemView.findViewById(R.id.itemname);
         }
 
 
