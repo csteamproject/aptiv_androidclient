@@ -84,7 +84,7 @@ public class NavBar extends AppCompatActivity implements NavigationView.OnNaviga
           Intent intent = new Intent(NavBar.this, AddInventory.class);
           viewInventory(intent);
         } else if (id == R.id.home) {
-          Intent intent = new Intent(NavBar.this, NavBar.class);
+          Intent intent = new Intent(NavBar.this, homePage.class);
           viewInventory(intent);
         }
 

@@ -22,6 +22,8 @@
         <activity android:name=".NavBar" />
         <activity android:name=".InventoryIndex" />
         <activity android:name=".EditItem"></activity>
+        <activity android:name=".homePage"></activity>
+        <activity android:name=".EditTicket"></activity>
     </application>
 
 </manifest>

@@ -13,6 +13,7 @@ import java.util.List;
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     private Context mContext;
+
     public static List<Item> list;
     public void getEditItem(Intent intent) {
         mContext.startActivity(intent);
@@ -36,7 +37,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         holder.textName.setText(item.getName());
         holder.textPrice.setText(String.valueOf(item.getPrice()));
         holder.textQuantity.setText(String.valueOf(item.getQuantity()));
-        holder.editItem.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, EditItem.class);
@@ -61,9 +62,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         public TextView textName, textPrice, textQuantity;
         public Button editItem;
 
+
         public ViewHolder(View itemView) {
             super(itemView);
-            editItem = itemView.findViewById(R.id.editItem);
 
             textName = itemView.findViewById(R.id.main_title);
             textPrice = itemView.findViewById(R.id.main_price);

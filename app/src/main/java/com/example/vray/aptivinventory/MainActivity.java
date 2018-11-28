@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         edit.putString("locationID", locationID);
         edit.apply();
         if (success.equals("true")) {
-          Intent intent = new Intent(MainActivity.this, NavBar.class);
+          Intent intent = new Intent(MainActivity.this, InventoryIndex.class);
           route(intent);
         }
       } catch (Exception e) {
