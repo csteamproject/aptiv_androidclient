@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -28,32 +29,87 @@
             android:orientation="vertical"
             android:padding="5dp">
 
-            <TextView
-                android:id="@+id/brand"
-                android:layout_width="200dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Brand" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/model"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:text="Model" />
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Brand: " />
 
-            <TextView
-                android:id="@+id/serialNumber"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:text="Serial Number" />
+                <TextView
+                    android:id="@+id/brand"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:text="Brand" />
 
-            <TextView
-                android:id="@+id/Operable"
-                android:layout_width="200dp"
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Operable" />
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Model: " />
+
+                <TextView
+                    android:id="@+id/model"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:text="Model" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Serial Number: " />
+
+                <TextView
+                    android:id="@+id/serialNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Serial Number" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Operable: " />
+
+                <TextView
+                    android:id="@+id/Operable"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:text="Operable" />
+
+            </LinearLayout>
+
+
 
         </LinearLayout>
 
     </LinearLayout>
+
 
 </LinearLayout>
